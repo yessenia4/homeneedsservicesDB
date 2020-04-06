@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 29, 2020 at 12:38 AM
+-- Generation Time: Apr 06, 2020 at 12:16 AM
 -- Server version: 5.7.28
 -- PHP Version: 7.2.28
 
@@ -31,6 +31,31 @@ CREATE TABLE `administrators` (
   `adminID` int(11) NOT NULL,
   `adminEmail` varchar(100) NOT NULL,
   `adminPassword` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contractorApplications`
+--
+
+CREATE TABLE `contractorApplications` (
+  `contractorID` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `ssn` int(9) NOT NULL,
+  `address` varchar(150) NOT NULL,
+  `aptNum` varchar(10) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `state` varchar(50) NOT NULL,
+  `zipcode` int(9) NOT NULL,
+  `willingTravel` int(11) NOT NULL,
+  `phone` int(11) NOT NULL,
+  `dob` date NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `dateApp` date NOT NULL,
+  `adminID` int(11) NOT NULL,
+  `dateApproved` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -90,7 +115,8 @@ CREATE TABLE `contractPayment` (
   `contractID` int(11) NOT NULL,
   `time` datetime NOT NULL,
   `total` decimal(10,2) NOT NULL,
-  `approved` tinyint(1) NOT NULL
+  `approved` tinyint(1) NOT NULL,
+  `refund` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -103,15 +129,16 @@ CREATE TABLE `contracts` (
   `contractID` int(11) NOT NULL,
   `serviceID` int(11) NOT NULL,
   `userID` int(11) NOT NULL,
-  `description` int(11) NOT NULL,
-  `dateService` int(11) NOT NULL,
-  `startTime` int(11) NOT NULL,
-  `serviceZipCode` int(11) NOT NULL,
-  `serviceAddress` int(11) NOT NULL,
-  `serviceAptNum` int(11) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `dateService` date NOT NULL,
+  `startTime` time NOT NULL,
+  `serviceZipCode` int(9) NOT NULL,
+  `serviceAddress` varchar(150) NOT NULL,
+  `serviceAptNum` varchar(10) NOT NULL,
   `contractorID` int(11) NOT NULL,
   `paymentID` int(11) NOT NULL,
-  `dateContract` datetime NOT NULL
+  `dateContract` datetime NOT NULL,
+  `cancelContract` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -156,6 +183,21 @@ CREATE TABLE `schedules` (
   `scheduleID` int(11) NOT NULL,
   `time_slot_ID` int(11) NOT NULL,
   `busy/available` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `serviceApplications`
+--
+
+CREATE TABLE `serviceApplications` (
+  `serviceAppID` int(11) NOT NULL,
+  `contractorID` int(11) NOT NULL,
+  `serviceID` int(11) NOT NULL,
+  `dateApp` date NOT NULL,
+  `adminID` int(11) NOT NULL,
+  `dateApproved` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -226,12 +268,19 @@ ALTER TABLE `administrators`
   ADD PRIMARY KEY (`adminID`);
 
 --
+-- Indexes for table `contractorApplications`
+--
+ALTER TABLE `contractorApplications`
+  ADD PRIMARY KEY (`contractorID`),
+  ADD UNIQUE KEY `ssn` (`ssn`),
+  ADD KEY `adminConstraint3` (`adminID`);
+
+--
 -- Indexes for table `contractors`
 --
 ALTER TABLE `contractors`
   ADD PRIMARY KEY (`contractorID`),
   ADD UNIQUE KEY `scheduleID` (`scheduleID`),
-  ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `ssn` (`ssn`);
 
 --
@@ -285,6 +334,15 @@ ALTER TABLE `schedules`
   ADD KEY `timeConstraint` (`time_slot_ID`);
 
 --
+-- Indexes for table `serviceApplications`
+--
+ALTER TABLE `serviceApplications`
+  ADD PRIMARY KEY (`serviceAppID`,`serviceID`),
+  ADD KEY `contractorConstraint5` (`contractorID`),
+  ADD KEY `serviceConstraint3` (`serviceID`),
+  ADD KEY `adminConstraint` (`adminID`);
+
+--
 -- Indexes for table `serviceCategories`
 --
 ALTER TABLE `serviceCategories`
@@ -313,6 +371,18 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `contractorApplications`
+--
+ALTER TABLE `contractorApplications`
+  ADD CONSTRAINT `adminConstraint3` FOREIGN KEY (`adminID`) REFERENCES `administrators` (`adminID`);
+
+--
+-- Constraints for table `contractors`
+--
+ALTER TABLE `contractors`
+  ADD CONSTRAINT `appContractorConstraint2` FOREIGN KEY (`contractorID`) REFERENCES `contractorApplications` (`contractorID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `contractorsServiceRecords`
@@ -361,6 +431,14 @@ ALTER TABLE `rating`
 ALTER TABLE `schedules`
   ADD CONSTRAINT `scheduleConstraint` FOREIGN KEY (`scheduleID`) REFERENCES `contractors` (`scheduleID`) ON DELETE CASCADE,
   ADD CONSTRAINT `timeConstraint` FOREIGN KEY (`time_slot_ID`) REFERENCES `time_slots` (`time_slot_ID`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `serviceApplications`
+--
+ALTER TABLE `serviceApplications`
+  ADD CONSTRAINT `adminConstraint` FOREIGN KEY (`adminID`) REFERENCES `administrators` (`adminID`),
+  ADD CONSTRAINT `contractorConstraint5` FOREIGN KEY (`contractorID`) REFERENCES `contractors` (`contractorID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `serviceConstraint3` FOREIGN KEY (`serviceID`) REFERENCES `serviceCategories` (`serviceID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `serviceCategories`

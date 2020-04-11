@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2020 at 12:16 AM
+-- Generation Time: Apr 11, 2020 at 02:29 AM
 -- Server version: 5.7.28
 -- PHP Version: 7.2.28
 
@@ -207,20 +207,20 @@ CREATE TABLE `serviceApplications` (
 --
 
 CREATE TABLE `serviceCategories` (
-  `serviceID` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `subServiceID` int(11) NOT NULL
+  `categoryServiceID` int(11) NOT NULL,
+  `sub_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subServiceCategories`
+-- Table structure for table `services`
 --
 
-CREATE TABLE `subServiceCategories` (
-  `subServiceID` int(11) NOT NULL,
-  `sub_name` varchar(100) NOT NULL
+CREATE TABLE `services` (
+  `serviceID` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `categoryServiceID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -346,14 +346,14 @@ ALTER TABLE `serviceApplications`
 -- Indexes for table `serviceCategories`
 --
 ALTER TABLE `serviceCategories`
-  ADD PRIMARY KEY (`serviceID`),
-  ADD KEY `subServiceConstraint` (`subServiceID`);
+  ADD PRIMARY KEY (`categoryServiceID`);
 
 --
--- Indexes for table `subServiceCategories`
+-- Indexes for table `services`
 --
-ALTER TABLE `subServiceCategories`
-  ADD PRIMARY KEY (`subServiceID`);
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`serviceID`),
+  ADD KEY `subServiceConstraint` (`categoryServiceID`);
 
 --
 -- Indexes for table `time_slots`
@@ -389,7 +389,7 @@ ALTER TABLE `contractors`
 --
 ALTER TABLE `contractorsServiceRecords`
   ADD CONSTRAINT `contractorConstraint3` FOREIGN KEY (`contractorID`) REFERENCES `contractors` (`contractorID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `serviceConstraint` FOREIGN KEY (`serviceID`) REFERENCES `serviceCategories` (`serviceID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `serviceConstraint` FOREIGN KEY (`serviceID`) REFERENCES `services` (`serviceID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `contractors_background`
@@ -409,7 +409,7 @@ ALTER TABLE `contractPayment`
 ALTER TABLE `contracts`
   ADD CONSTRAINT `contractorConstraint4` FOREIGN KEY (`contractorID`) REFERENCES `contractors` (`contractorID`) ON DELETE CASCADE,
   ADD CONSTRAINT `paymentConstraint` FOREIGN KEY (`paymentID`) REFERENCES `paymentInfo` (`paymentID`),
-  ADD CONSTRAINT `serviceConstraint2` FOREIGN KEY (`serviceID`) REFERENCES `serviceCategories` (`serviceID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `serviceConstraint2` FOREIGN KEY (`serviceID`) REFERENCES `services` (`serviceID`) ON DELETE CASCADE,
   ADD CONSTRAINT `userConstraint4` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE;
 
 --
@@ -438,13 +438,13 @@ ALTER TABLE `schedules`
 ALTER TABLE `serviceApplications`
   ADD CONSTRAINT `adminConstraint` FOREIGN KEY (`adminID`) REFERENCES `administrators` (`adminID`),
   ADD CONSTRAINT `contractorConstraint5` FOREIGN KEY (`contractorID`) REFERENCES `contractors` (`contractorID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `serviceConstraint3` FOREIGN KEY (`serviceID`) REFERENCES `serviceCategories` (`serviceID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `serviceConstraint3` FOREIGN KEY (`serviceID`) REFERENCES `services` (`serviceID`) ON DELETE CASCADE;
 
 --
--- Constraints for table `serviceCategories`
+-- Constraints for table `services`
 --
-ALTER TABLE `serviceCategories`
-  ADD CONSTRAINT `subServiceConstraint` FOREIGN KEY (`subServiceID`) REFERENCES `subServiceCategories` (`subServiceID`) ON DELETE CASCADE;
+ALTER TABLE `services`
+  ADD CONSTRAINT `subServiceConstraint` FOREIGN KEY (`categoryServiceID`) REFERENCES `serviceCategories` (`categoryServiceID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

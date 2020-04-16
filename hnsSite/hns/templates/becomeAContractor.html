@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+    <head>
+        <title>Become a Contractor</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+    </head>
+   
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+            
+            <div class="topnav_menu">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'services_list' %}">Services</a>
+                <a class="active" href="{% url 'becomeContractor' %}">Become A Contractor</a>
+                <a href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+        
+        <div class="pageContent">
+            <h4 class="header">Be a Contractor with HomeNeedsService</h4>
+            <p>Get easy access to hundreds of potential jobs within your area and schedule.</p>
+            <p>Already applied?</p>
+        </div>
+    </body>
+
+</html>

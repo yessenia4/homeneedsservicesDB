@@ -5,3 +5,12 @@ from django.http import HttpResponse
 
 def index(request):
     return render(request, 'home.html')
+
+def services_list(request):
+    return render(request, 'servicesList.html')
+
+def becomeContractor(request):
+    return render(request, 'becomeAContractor.html')
+
+def login(request):
+    return render(request, 'login.html')

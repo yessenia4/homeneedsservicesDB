@@ -213,6 +213,9 @@ class Users(models.Model):
     state = models.CharField(max_length=50)
     zipcode = models.IntegerField(db_column='zipCode')  # Field name made lowercase.
 
+    def __str__(self):
+        return self.title
+
     class Meta:
-        managed = False
+        managed = True
         db_table = 'users'

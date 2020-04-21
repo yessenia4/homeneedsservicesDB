@@ -24,7 +24,21 @@
         </div>
         
         <div class="pageContent">
-            <h4 class="header">Login</h4>
+            <h2 class="header">Login</h2>
+            
+            <form class="login">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class=field>
+                        <label for="{{ field.id_for_label }}" class="label">{{field.label}}</label>
+                        {{field}}
+                    </div>
+                {% endfor %}
+                <input type="submit" name="Login User">
+                <div class="createAccount">
+                    Don't have an account? <a href="#">Sign-up</a>
+                </div>
+            </form>
         </div>
     </body>
 

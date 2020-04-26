@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Create User Account</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+        </div>
+
+        <h2 class="header">Create User Account</h2>
+
+        <form class="becomeUser">
+            <table>
+                <tr>
+                    <th>
+                        <label for="{{ form.firstname.id_for_label }}" class="label">{{form.firstname.label}}</label>
+                    </th>
+                    <th>
+                        <label for="{{ form.lastname.id_for_label }}" class="label">{{form.lastname.label}}</label>
+                    </th>
+                </tr>
+                <tr>
+                    <th>{{form.firstname}}</th>
+                    <th>{{form.lastname}}</th>
+                </tr>
+              <tr>
+                <th colspan="2">
+                    <label for="{{ form.address.id_for_label }}" class="label">{{form.address.label}}</label>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">{{form.address}}</th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <label for="{{ form.aptnum.id_for_label }}" class="label">{{form.aptnum.label}}</label>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">{{form.aptnum}}</th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <label for="{{ form.city.id_for_label }}" class="label">{{form.city.label}}</label>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">{{form.city}}</th>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.state.id_for_label }}" class="label">{{form.state.label}}</label>
+                    </th>
+                    <th>
+                        <label for="{{ form.zipcode.id_for_label }}" class="label">{{form.zipcode.label}}</label>
+                    </th>
+                </tr>
+                <tr>
+                    <th>{{form.state}}</th>
+                    <th>{{form.zipcode}}</th>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="{{ form.dob.id_for_label }}" class="label">D.O.B</label>
+                    </th>
+                    <th>
+                        <label for="{{ form.phone.id_for_label }}" class="label">{{form.phone.label}}</label>
+                    </th>
+                </tr>
+                <tr>
+                    <th>{{form.dob}}</th>
+                    <th>{{form.phone}}</th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <label for="{{ form.email.id_for_label }}" class="label">{{form.email.label}}</label>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">{{form.email}}</th>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        <label for="{{ form.password.id_for_label }}" class="label">{{form.password.label}}</label>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="2">{{form.password}}</th>
+                </tr>
+            </table>
+
+            <input type="submit" name="Create Account">
+            <div class="checkAccount">
+                Already have an account? <a href="{% url 'login' %}">Login</a>
+            </div>
+        </form>
+    </body>
+
+</html>

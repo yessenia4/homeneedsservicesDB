@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 
 from .forms import *
 
@@ -9,28 +10,41 @@ def index(request):
     return render(request, 'home.html')
 
 def services_list(request):
-    return render(request, 'servicesList.html')
+    services = Services.objects.all()
+    serviceCategories = Servicecategories.objects.all()
+
+    context = {'services':services, 'serviceCategories':serviceCategories}
+
+    return render(request, 'servicesList.html', context)
 
 def becomeContractor(request):
-    return render(request, 'becomeAContractor.html')
+    form = NewContractorForm()
+    context = {'form':form}
+    return render(request, 'becomeAContractor.html', context)
 
 def login(request):
-    '''
     if request.method == 'POST':
-        form = AuthenticationForm(request=request, data=request.POST)
+        form = form = LoginUserForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+            user = authenticate(email=email, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}")
-                return redirect('/')
+                #messages.info(request, f"You are now logged in as {username}")
+                return redirect('index')
             else:
                 messages.error(request, "Invalid username or password.")
-        else:
-            messages.error(request, "Invalid username or password.")
-    '''
+    
     form = LoginUserForm()
     context = {'form':form}
     return render(request, 'login.html', context)
+
+def createUserAccount(request):
+    form = NewUserForm()
+    context = {'form':form}
+    return render(request, 'createNewUser.html', context)
+
+def userProfile(request):
+    context = {'user': request.user}
+    return render(request, 'user/userProfile.html',context)

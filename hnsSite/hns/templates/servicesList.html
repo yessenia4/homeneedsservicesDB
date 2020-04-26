@@ -26,6 +26,19 @@
         <div class="pageContent">
             <h2 class="header">Services</h2>
             <p>Select the service you need to book.</p>
+
+            {% for serviceCategory in serviceCategories %}
+                <div class="serviceCategoryTitles">
+                    <h4>{{serviceCategory.sub_name}}</h4>
+
+                    {% for service in serviceCategory.services_set.all %}
+                        <div class="servieLinks">
+                            <a href="#">{{service}}</a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
         </div>
     </body>
 

@@ -14,28 +14,11 @@
             <div class="topnav_logo">
                 <a href="{% url 'home' %}">HomeNeedsService</a>
             </div>
-            
-            <div class="topnav_menu">
-                <a href="{% url 'home' %}">Home</a>
-                <a href="{% url 'services_list' %}">Services</a>
-                <a href="{% url 'becomeContractor' %}">Become A Contractor</a>
-                <a class="active" href="{% url 'login' %}">Login</a>
-            </div>
         </div>
         
         <div class="pageContent">
             <h2 class="header">Login</h2>
-
-            {% for message in messages %}
-
-                    <div class="alert alert-success">
-                        <a class="close" href="#" data-dismiss="alert">×</a>
-
-                        {{ message }}
-
-                    </div>
-            {% endfor %}
-
+            
             <form class="login" method="POST">
                 {% csrf_token %}
                 {% if form.non_field_errors %}
@@ -45,16 +28,15 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
-
                 {% for field in form %}
                     <div class="field">
                         <label for="{{ field.id_for_label }}" class="label">{{field.label}}</label>
                         {{field}}
                     </div>
                 {% endfor %}
-                <input type="submit" name="Login User">
+                <input type="submit" name="Login Administrator">
                 <div class="createAccount">
-                    Don't have an account? <a href="{% url 'createUserAccount' %}">Sign-up</a>
+                    Not a contractor? <a href="{% url 'becomeContractor' %}">Become a Contractor</a>
                 </div>
             </form>
         </div>

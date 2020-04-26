@@ -10,12 +10,22 @@ body {
 }
 
 p {
-    padding: 35px;
+    margin-top: 30px;
+    margin-right: 35px;
+    margin-left: 35px;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ~~ Login ~~ */
 .login {
     width: 30%;
-    padding: 15px;
+    padding: 25px;
     margin: auto;
     background-color: #333;
 }
@@ -39,7 +49,15 @@ p {
     color: #f2f2f2;
 }
 
-.login input[type=text], input[type=email]{
+.login input[type=email]{
+    width: 95%;
+    padding: 10px;
+    margin: 8px 0;
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+
+.login input[type=password]{
     width: 95%;
     padding: 10px;
     margin: 8px 0;
@@ -58,9 +76,146 @@ p {
     margin-bottom: 10px;
 }
 
+/* ~~ Create User/Contractor Account ~~ */
+.becomeUser {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.becomeUser table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.becomeUser th{
+    text-align: left;
+}
+
+.becomeUser input[type=text], input[type=email], input[type=password], input[type=number], select{
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+
+.becomeUser input[type=submit]{
+    width: 100%;
+    background-color: #00bfff;
+    border: none;
+    padding: 15px 25px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.checkAccount{
+    margin: auto;
+    text-align: center;
+}
+
+.checkAccount a{
+    color: #00bfff;
+    text-decoration: none;
+}
+
+.checkAccount a:hover {
+    color: #333;
+}
+
+/* ~~ Service List ~~ */
+.serviceCategoryTitles{
+    margin-left: 35px;
+    margin-right: 35px;
+}
+
+.serviceCategoryTitles h4{
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #00bfff;
+}
+
+.servieLinks{
+    margin: 14px 30px;
+}
+
+.servieLinks a{
+    text-decoration: none;
+    color: black;
+}
+
+/* ~~ Top User Welcome Bar ~~ */
+.userWelcome{
+    margin-bottom: 30px;
+    padding: 30px;
+    background-color: #00bfff;
+    color: #f2f2f2;
+    font-size: 30px;
+}
+
+.usernav ul {
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    display: table;
+    text-align: center;
+}
+  
+.usernav li {
+    display: table-cell;
+    position: relative;
+    padding: 15px 0;
+}
+  
+.usernav a {
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    display: inline-block;
+    padding: 15px 20px;
+    position: relative;
+    color: black;
+}
+  
+.usernav .active a:after{    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #00bfff;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 100%;
+    left: 0;
+}
+  
+.usernav a:after {    
+    background: none repeat scroll 0 0 transparent;
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: #00bfff;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+  
+.usernav a:hover:after {
+    width: 100%;
+    left: 0;
+}
+
 /* ~~ Top Navigation Bar ~~ */
 .topnav {
     overflow: hidden;
+    padding-top: 15px;
     background-color: #333;
 }
 
@@ -73,12 +228,13 @@ p {
     color: #00bfff;
     text-align: center;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 32px;
 }
 
 .topnav_menu {
     float: right;
     padding: 14px 20px;
+    margin-top: 10px;
 }
 
 .topnav_menu a {

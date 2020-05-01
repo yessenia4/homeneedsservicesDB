@@ -21,90 +21,75 @@
         
         <div class="usernav">
             <ul>
-               <li class="active"><a href="#">Profile</a></li>
-               <li><a href="#">Booking Information</a></li>
-               <li><a href="#">Payment Methods</a></li>
+                <li class="active"><a href="{% url 'userProfile' %}" disabled="disabled">Profile</a></li>
+                <li><a href="{% url 'userBooking' %}">Booking Information</a></li>
+                <li><a href="{% url 'userPayment' %}">Payment Methods</a></li>
             </ul>
         </div>
 
         <table class="userinfo">
             <tr>
-                <th>
-                    <label for="{{ user.firstname.id_for_label }}" class="label">{{user.firstname.label}}</label>
-                </th>
-                <th>
-                    <label for="{{ user.lastname.id_for_label }}" class="label">{{user.lastname.label}}</label>
-                </th>
+                <th>First Name</th>
+                <th>Last Name</th>
             </tr>
             <tr>
-                <th>{{user.firstname}}</th>
-                <th>{{user.lastname}}</th>
-            </tr>
-          <tr>
-            <th colspan="2">
-                <label for="{{ form.address.id_for_label }}" class="label">{{user.address.label}}</label>
-                </th>
+                <td>{{user.firstname}}</td>
+                <td>{{user.lastname}}</td>
             </tr>
             <tr>
-                <th colspan="2">{{user.address}}</th>
+                <th>Address</th>
             </tr>
             <tr>
-                <th colspan="2">
-                    <label for="{{ form.aptnum.id_for_label }}" class="label">{{user.aptnum.label}}</label>
-                </th>
+                <td>{{user.address}}</td>
+            </tr>
+            {% if user.aptnum != none %}
+            <tr>
+                <th>Apartment Number</th>
             </tr>
             <tr>
-                <th colspan="2">{{user.aptnum}}</th>
+                <td>{{user.aptnum}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>City</th>
             </tr>
             <tr>
-                <th colspan="2">
-                    <label for="{{ user.city.id_for_label }}" class="label">{{user.city.label}}</label>
-                </th>
+                <td>{{user.city}}</td>
             </tr>
             <tr>
-                <th colspan="2">{{user.city}}</th>
+                <th>State</th>
+                <th>Zip Code</th>
             </tr>
             <tr>
-                <th>
-                    <label for="{{ user.state.id_for_label }}" class="label">{{user.state.label}}</label>
-                </th>
-                <th>
-                    <label for="{{ user.zipcode.id_for_label }}" class="label">{{user.zipcode.label}}</label>
-                </th>
+                <td>{{user.state}}</td>
+                <td>{{user.zipcode}}</td>
             </tr>
             <tr>
-                <th>{{user.state}}</th>
-                <th>{{user.zipcode}}</th>
+                <th>D.O.B</th>
+                <th>Phone</th>
             </tr>
             <tr>
-                <th>
-                    <label for="{{ user.dob.id_for_label }}" class="label">D.O.B</label>
-                </th>
-                <th>
-                    <label for="{{ user.phone.id_for_label }}" class="label">{{user.phone.label}}</label>
-                </th>
+                <td>{{user.dob}}</td>
+                <td>{{user.phone}}</td>
             </tr>
             <tr>
-                <th>{{user.dob}}</th>
-                <th>{{user.phone}}</th>
+                <th>Email</th>
             </tr>
             <tr>
-                <th colspan="2">
-                    <label for="{{ user.email.id_for_label }}" class="label">{{user.email.label}}</label>
-                </th>
+                <td>{{user.email}}</td>
             </tr>
             <tr>
-                <th colspan="2">{{user.email}}</th>
+                <th>Password</th>
             </tr>
             <tr>
-                <th colspan="2">
-                    <label for="{{ user.password.id_for_label }}" class="label">{{user.password.label}}</label>
-                </th>
-            </tr>
-            <tr>
-                <th colspan="2">{{user.password}}</th>
+                <td>{{user.password}}</td>
             </tr>
         </table>
+
+        <div class="edit_delete">
+            <a class="btn_link" href="{% url 'userProfile_edit' %}">Edit</a>
+            <a class="btn_link" href="{% url 'deleteAccount' %}" onclick="return confirm('Are you sure you want to delete your account?')">Delete Account</a>
+        </div>
     </body>
 
 </html>

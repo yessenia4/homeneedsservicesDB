@@ -7,6 +7,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+        <script>
+            prev = document.getElementById("previous_page");
+            prev.value = document.referrer;
+        </script>
     </head>
    
     <body>
@@ -14,37 +18,22 @@
             <div class="topnav_logo">
                 <a href="{% url 'home' %}">HomeNeedsService</a>
             </div>
-            
-            <div class="topnav_menu">
-                <a href="{% url 'home' %}">Home</a>
-                <a href="{% url 'services_list' %}">Services</a>
-                <a href="{% url 'becomeContractor' %}">Become A Contractor</a>
-                <a class="active" href="{% url 'login' %}">Login</a>
-            </div>
         </div>
         
         <div class="pageContent">
             <h2 class="header">Login</h2>
 
             {% for message in messages %}
+                <div class="alert alert-success">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
 
-                    <div class="alert alert-success">
-                        <a class="close" href="#" data-dismiss="alert">×</a>
+                    {{ message }}
 
-                        {{ message }}
-
-                    </div>
+                </div>
             {% endfor %}
 
             <form class="login" method="POST">
                 {% csrf_token %}
-                {% if form.non_field_errors %}
-                    <ul class='form-errors'>
-                        {% for error in form.non_field_errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
 
                 {% for field in form %}
                     <div class="field">

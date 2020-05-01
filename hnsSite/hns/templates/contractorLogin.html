@@ -17,26 +17,30 @@
         </div>
         
         <div class="pageContent">
-            <h2 class="header">Login</h2>
+            <h2 class="header">Contractor Login</h2>
             
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+
+                    {{ message }}
+
+                </div>
+            {% endfor %}
+
             <form class="login" method="POST">
                 {% csrf_token %}
-                {% if form.non_field_errors %}
-                    <ul class='form-errors'>
-                        {% for error in form.non_field_errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+
                 {% for field in form %}
                     <div class="field">
                         <label for="{{ field.id_for_label }}" class="label">{{field.label}}</label>
                         {{field}}
                     </div>
                 {% endfor %}
-                <input type="submit" name="Login Administrator">
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <input type="submit" name="Login User">
                 <div class="createAccount">
-                    Not a contractor? <a href="{% url 'becomeContractor' %}">Become a Contractor</a>
+                    Don't have an account? <a href="{% url 'becomeContractor' %}">Apply</a>
                 </div>
             </form>
         </div>

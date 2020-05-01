@@ -17,9 +17,27 @@
             
             <div class="topnav_menu">
                 <a href="{% url 'home' %}">Home</a>
-                <a class="active" href="{% url 'services_list' %}">Services</a>
+                <a class="active" href="{% url 'services_list' %}" disabled="disabled">Services</a>
                 <a href="{% url 'becomeContractor' %}">Become A Contractor</a>
-                <a href="{% url 'login' %}">Login</a>
+                {% if have_user %}
+                    <div class="dropdown">
+                        <button class="dropbtn">My Account 
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="{% url 'userProfile' %}">Profile</a>
+                            <a href="{% url 'userBooking' %}">Booking History</a>
+                            <a href="{% url 'userPayment' %}">Payment Methods</a>
+                            <a href="{% url 'logout' %}">Log Out</a>
+                        </div>
+                    </div>
+                {% elif have_contractor %}
+                    <a href="{% url 'userProfile' %}">My Account</a>
+                {% elif have_admin %}
+                    <a href="{% url 'userProfile' %}">My Account</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                {% endif %}
             </div>
         </div>
         
@@ -27,19 +45,47 @@
             <h2 class="header">Services</h2>
             <p>Select the service you need to book.</p>
 
+            <div class="list_services">
             {% for serviceCategory in serviceCategories %}
                 <div class="serviceCategoryTitles">
                     <h4>{{serviceCategory.sub_name}}</h4>
 
                     {% for service in serviceCategory.services_set.all %}
                         <div class="servieLinks">
-                            <a href="#">{{service}}</a>
+                            <a href="{% url 'booking1' pk=service.serviceid %}">{{service}}</a>
                         </div>
                     {% endfor %}
                 </div>
             {% endfor %}
-
+            </div>
         </div>
+
+        <footer>
+            <!-- Footer main -->
+            <section class="ft-main">
+              <div class="ft-main-item">
+                <ul>
+                  <li><a href="{% url 'services_list' %}">Services</a></li>
+                  <li><a href="{% url 'becomeContractor' %}">Become A Contractor</a></li>
+                  <li><a href="{% url 'login' %}">User Account</a></li>
+                  <li><a href="{% url 'loginContractor' %}">Contractor Account</a></li>
+                  <li><a href="{% url 'loginAdministrator' %}">Administrator Account</a></li>
+                </ul>
+              </div>
+              <div class="ft-main-item">
+                <a href="#">Contact Us</a>
+              </div>
+            </section>
+          
+            <!-- Footer legal -->
+            <section class="ft-legal">
+              <ul class="ft-legal-list">
+                <li><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li>&copy;2020 Group 3 - Fix-it-Felix.</li>
+              </ul>
+            </section>
+        </footer>
     </body>
 
 </html>

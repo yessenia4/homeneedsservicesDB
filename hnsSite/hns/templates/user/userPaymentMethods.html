@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
     <head>
-        <title>Welcome</title>
+        <title>My Payment Methods</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
@@ -21,9 +21,9 @@
         
         <div class="usernav">
             <ul>
-               <li><a href="#">Profile</a></li>
-               <li><a href="#">Booking Information</a></li>
-               <li class="active"><a href="#">Payment Methods</a></li>
+                <li><a href="{% url 'userProfile' %}">Profile</a></li>
+                <li><a href="{% url 'userBooking' %}">Booking Information</a></li>
+                <li class="active"><a href="{% url 'userPayment' %}" disabled="disabled">Payment Methods</a></li>
             </ul>
         </div>
 

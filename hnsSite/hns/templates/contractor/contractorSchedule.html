@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Contractor Schedule</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+        </div>
+
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{contractor.name}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li><a href="{% url 'contractorProfile' %}">Profile</a></li>
+                <li><a href="#">Services Record</a></li>
+                <li><a href="#">Rating Record</a></li>
+                <li class="active"><a href="#" disabled="disabled">My Schedule</a></li>
+                <li><a href="#">Contract History</a></li>
+            </ul>
+        </div>
+
+    </body>
+
+</html>

@@ -37,13 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'hns',
 ]
-
-#new custom user model
-AUTH_USER_MODEL = 'hns.Users'
-AUTHENTICATION_BACKENDS = ('hns.backends.MyAuthBackend','django.contrib.auth.backends.ModelBackend',)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,6 +49,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Close the session when user closes the browser
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 ROOT_URLCONF = 'hnsSite.urls'
 

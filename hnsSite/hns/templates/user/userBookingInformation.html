@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>My Payment Methods</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+        </div>
+
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{user.firstname}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li><a href="{% url 'userProfile' %}">Profile</a></li>
+                <li class="active"><a href="{% url 'userBooking' %}" disabled="disabled">Booking Information</a></li>
+                <li><a href="{% url 'userPayment' %}">Payment Methods</a></li>
+            </ul>
+        </div>
+
+    </body>
+
+</html>

@@ -6,6 +6,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $( function() {
+                $( "#id_dob" ).datepicker({changeMonth: true, changeYear: true, yearRange: "-100:+0", minDate: new Date()});
+            } );
+        </script>
     </head>
 
     <body>
@@ -17,83 +26,65 @@
 
         <h2 class="header">Create User Account</h2>
 
-        <form class="becomeUser">
+        {% for message in messages %}
+            <div class="alert alert-success">
+                <a class="close" href="#" data-dismiss="alert">×</a>
+                {{ message }}
+            </div>
+        {% endfor %}
+        <form class="becomeUser" method="POST">
+            {% csrf_token %}
+
             <table>
                 <tr>
-                    <th>
-                        <label for="{{ form.firstname.id_for_label }}" class="label">{{form.firstname.label}}</label>
-                    </th>
-                    <th>
-                        <label for="{{ form.lastname.id_for_label }}" class="label">{{form.lastname.label}}</label>
-                    </th>
+                    <th>{{form.firstname.label}}</th>
+                    <th>{{form.lastname.label}}</th>
                 </tr>
                 <tr>
-                    <th>{{form.firstname}}</th>
-                    <th>{{form.lastname}}</th>
-                </tr>
-              <tr>
-                <th colspan="2">
-                    <label for="{{ form.address.id_for_label }}" class="label">{{form.address.label}}</label>
-                    </th>
+                    <td>{{form.firstname}}</td>
+                    <td>{{form.lastname}}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">{{form.address}}</th>
+                    <th colspan="2">{{form.address.label}}</th>
                 </tr>
                 <tr>
-                    <th colspan="2">
-                        <label for="{{ form.aptnum.id_for_label }}" class="label">{{form.aptnum.label}}</label>
-                    </th>
+                    <td colspan="2">{{form.address}}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">{{form.aptnum}}</th>
+                    <th>{{form.aptnum.label}}</th>
+                    <th>{{form.city.label}}</th>
                 </tr>
                 <tr>
-                    <th colspan="2">
-                        <label for="{{ form.city.id_for_label }}" class="label">{{form.city.label}}</label>
-                    </th>
+                    <td>{{form.aptnum}}</td>
+                    <td>{{form.city}}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">{{form.city}}</th>
+                    <th>{{form.state.label}}</th>
+                    <th>{{form.zipcode.label}}</th>
                 </tr>
                 <tr>
-                    <th>
-                        <label for="{{ form.state.id_for_label }}" class="label">{{form.state.label}}</label>
-                    </th>
-                    <th>
-                        <label for="{{ form.zipcode.id_for_label }}" class="label">{{form.zipcode.label}}</label>
-                    </th>
+                    <td>{{form.state}}</td>
+                    <td>{{form.zipcode}}</td>
                 </tr>
                 <tr>
-                    <th>{{form.state}}</th>
-                    <th>{{form.zipcode}}</th>
+                    <th>D.O.B</th>
+                    <th>{{form.phone.label}}</th>
                 </tr>
                 <tr>
-                    <th>
-                        <label for="{{ form.dob.id_for_label }}" class="label">D.O.B</label>
-                    </th>
-                    <th>
-                        <label for="{{ form.phone.id_for_label }}" class="label">{{form.phone.label}}</label>
-                    </th>
+                    <td>{{form.dob}}</td>
+                    <td>{{form.phone}}</td>
                 </tr>
                 <tr>
-                    <th>{{form.dob}}</th>
-                    <th>{{form.phone}}</th>
+                    <th colspan="2">{{form.email.label}}</th>
                 </tr>
                 <tr>
-                    <th colspan="2">
-                        <label for="{{ form.email.id_for_label }}" class="label">{{form.email.label}}</label>
-                    </th>
+                    <td colspan="2">{{form.email}}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">{{form.email}}</th>
+                    <th colspan="2">{{form.password.label}}</th>
                 </tr>
                 <tr>
-                    <th colspan="2">
-                        <label for="{{ form.password.id_for_label }}" class="label">{{form.password.label}}</label>
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="2">{{form.password}}</th>
+                    <td colspan="2">{{form.password}}</td>
                 </tr>
             </table>
 

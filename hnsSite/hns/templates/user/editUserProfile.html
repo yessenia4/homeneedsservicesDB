@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Welcome</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $( function() {
+                $( "#id_dob" ).datepicker({changeMonth: true, changeYear: true, yearRange: "-100:+0", minDate: new Date()});
+            } );
+        </script>
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+        </div>
+
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{user.firstname}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li class="active"><a href="{% url 'userProfile' %}" disabled="disabled">Profile</a></li>
+                <li><a href="{% url 'userBooking' %}">Booking Information</a></li>
+                <li><a href="{% url 'userPayment' %}">Payment Methods</a></li>
+            </ul>
+        </div>
+
+        {% for message in messages %}
+            <div class="alert alert-success">
+                <a class="close" href="#" data-dismiss="alert">×</a>
+
+                {{ message }}
+
+            </div>
+        {% endfor %}
+
+        <form class="becomeUser" method="POST">
+            {% csrf_token %}
+
+            <table>
+                <tr>
+                    <th>{{form.firstname.label}}</th>
+                    <th>{{form.lastname.label}}</th>
+                </tr>
+                <tr>
+                    <td>{{form.firstname}}</td>
+                    <td>{{form.lastname}}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">{{form.address.label}}</th>
+                </tr>
+                <tr>
+                    <td colspan="2">{{form.address}}</td>
+                </tr>
+                <tr>
+                    <th>{{form.aptnum.label}}</th>
+                    <th>{{form.city.label}}</th>
+                </tr>
+                <tr>
+                    <td>{{form.aptnum}}</td>
+                    <td>{{form.city}}</td>
+                </tr>
+                <tr>
+                    <th>{{form.state.label}}</th>
+                    <th>{{form.zipcode.label}}</th>
+                </tr>
+                <tr>
+                    <td>{{form.state}}</td>
+                    <td>{{form.zipcode}}</td>
+                </tr>
+                <tr>
+                    <th>D.O.B</th>
+                    <th>{{form.phone.label}}</th>
+                </tr>
+                <tr>
+                    <td>{{form.dob}}</td>
+                    <td>{{form.phone}}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">{{form.email.label}}</th>
+                </tr>
+                <tr>
+                    <td colspan="2">{{user.email}}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">{{form.password.label}}</th>
+                </tr>
+                <tr>
+                    <td colspan="2">{{form.password}}</td>
+                </tr>
+            </table>
+
+            <div class="edit_delete">
+                <input type="submit" name="Edit Account" value="Save">
+                <a class="btn_link" href="{% url 'userProfile' %}">Cancel</a>
+            </div>
+        </form>
+    </body>
+
+</html>

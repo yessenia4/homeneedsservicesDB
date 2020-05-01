@@ -6,7 +6,6 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class Administrators(models.Model):
     adminid = models.IntegerField(db_column='adminID', primary_key=True)  # Field name made lowercase.
@@ -223,19 +222,7 @@ class TimeSlots(models.Model):
         db_table = 'time_slots'
 
 
-class MyUsersManager(BaseUserManager):
-    use_in_migrations = True
-    
-    # python manage.py createsuperuser
-    def create_superuser(self, email, password, **extra_fields):
-        extra_fields.setdefault('is_superuser', True)
-
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-
-        return self._create_user(email, password, **extra_fields)
-
-class Users(AbstractBaseUser):
+class Users(models.Model):
     userid = models.IntegerField(db_column='userID', primary_key=True)  # Field name made lowercase.
     firstname = models.CharField(db_column='firstName', max_length=20)  # Field name made lowercase.
     lastname = models.CharField(db_column='lastName', max_length=20)  # Field name made lowercase.
@@ -248,14 +235,6 @@ class Users(AbstractBaseUser):
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     zipcode = models.IntegerField(db_column='zipCode')  # Field name made lowercase.
-    is_active = models.BooleanField(db_column='is_active', default=True)
-
-    USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS must contain all required fields on your User model, 
-    # but should not contain the USERNAME_FIELD or password as these fields will always be prompted for.
-    REQUIRED_FIELDS = ['firstname', 'lastname', 'dob', 'address', 'city', 'state', 'zipcode']
-
-    objects = MyUsersManager()
 
     def __str__(self):
         return self.title

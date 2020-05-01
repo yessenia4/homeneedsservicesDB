@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Welcome</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+        </div>
+
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{contractor.name}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li class="active"><a href="{% url 'contractorProfile' %}" disabled="disabled">Profile</a></li>
+                <li><a href="#">Services Record</a></li>
+                <li><a href="#">Rating Record</a></li>
+                <li><a href="#">My Schedule</a></li>
+                <li><a href="#">Contract History</a></li>
+            </ul>
+        </div>
+
+        <table class="userinfo">
+            <tr>
+                <th>Name</th>
+            </tr>
+            <tr>
+                <td>{{contractor.name}}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+            </tr>
+            <tr>
+                <th>{{contractor.address}}</th>
+            </tr>
+            {% if user.aptnum == null %}
+            <tr>
+                <th>Apartment Number</th>
+            </tr>
+            <tr>
+                <td>{{contractor.aptnum}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip Code</th>
+            </tr>
+            <tr>
+                <td>{{contractor.city}}</td>
+                <td>{{contractor.state}}</td>
+                <td>{{contractor.zipcode}}</td>
+            </tr>
+            <tr>
+                <th>SSN</th>
+                <th>D.O.B</th>
+                <th>Phone</th>
+            </tr>
+            <tr>
+                <td>{{contractor.ssn}}</td>
+                <td>{{contractor.dob}}</td>
+                <td>{{contractor.phone}}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+            </tr>
+            <tr>
+                <td>{{contractor.email}}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+            </tr>
+            <tr>
+                <td>{{contractor.password}}</td>
+            </tr>
+        </table>
+
+        <div class="edit_delete">
+            <a class="btn_link" href="#">Edit</a>
+            <a class="btn_link" href="#">Delete Account</a>
+        </div>
+    </body>
+
+</html>

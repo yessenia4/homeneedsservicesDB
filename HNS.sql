@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 16, 2020 at 05:46 AM
+-- Generation Time: May 03, 2020 at 11:44 PM
 -- Server version: 5.7.28
 -- PHP Version: 7.2.28
 
@@ -33,6 +33,13 @@ CREATE TABLE `administrators` (
   `adminPassword` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `administrators`
+--
+
+INSERT INTO `administrators` (`adminID`, `adminEmail`, `adminPassword`) VALUES
+(1, 'yessenia.yess98@hotmail.com', 'admin1');
+
 -- --------------------------------------------------------
 
 --
@@ -41,7 +48,7 @@ CREATE TABLE `administrators` (
 
 CREATE TABLE `auth_group` (
   `id` int(11) NOT NULL,
-  `name` varchar(80) NOT NULL
+  `name` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -212,21 +219,30 @@ CREATE TABLE `auth_user_user_permissions` (
 CREATE TABLE `contractorApplications` (
   `contractorID` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `ssn` int(9) NOT NULL,
+  `ssn` int(11) NOT NULL,
   `address` varchar(150) NOT NULL,
   `aptNum` varchar(10) NOT NULL,
   `city` varchar(50) NOT NULL,
   `state` varchar(50) NOT NULL,
   `zipcode` int(9) NOT NULL,
   `willingTravel` int(11) NOT NULL,
-  `phone` int(11) NOT NULL,
+  `phone` varchar(15) NOT NULL,
   `dob` date NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
   `dateApp` date NOT NULL,
-  `adminID` int(11) NOT NULL,
-  `dateApproved` date NOT NULL
+  `adminID` int(11) DEFAULT NULL,
+  `dateApproved` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `contractorApplications`
+--
+
+INSERT INTO `contractorApplications` (`contractorID`, `name`, `ssn`, `address`, `aptNum`, `city`, `state`, `zipcode`, `willingTravel`, `phone`, `dob`, `email`, `password`, `dateApp`, `adminID`, `dateApproved`) VALUES
+(1, 'Clark Kent', 123456789, '517 Market St', '3D', 'Metropolis', 'IL', 62960, 50, '9563814675', '1938-04-18', 'clark.kent@dailyplanet.com', 'superman', '2020-05-02', 1, '2020-05-02'),
+(2, 'Joe Doe', 234567891, '1201 W University Dr', '', 'Edinburg', 'TX', 78539, 70, '9566657120', '1996-05-29', 'john.doe@fakeEmail.com', 'contractor2', '2020-05-03', 1, '2020-05-03'),
+(3, 'Kassie Wayne', 345678912, '1 W University Blvd', '', 'Brownsville', 'TX', 78520, 50, '9562030500', '2000-07-25', 'kassie.wayner@wayneContractor.com', 'wayne1', '2020-05-01', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -245,11 +261,19 @@ CREATE TABLE `contractors` (
   `state` varchar(50) NOT NULL,
   `zipCode` int(9) NOT NULL,
   `willingTravel` int(11) NOT NULL,
-  `phone` int(11) NOT NULL,
+  `phone` varchar(15) NOT NULL,
   `dob` date NOT NULL,
   `password` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `contractors`
+--
+
+INSERT INTO `contractors` (`contractorID`, `name`, `ssn`, `scheduleID`, `address`, `aptNum`, `city`, `state`, `zipCode`, `willingTravel`, `phone`, `dob`, `password`, `email`) VALUES
+(1, 'Clark Kent', 123456789, 1, '517 Market St', '3D', 'Metropolis', 'IL', 62960, 100, '9563814675', '1938-04-18', 'superman', 'clark.kent@dailyplanet.com'),
+(2, 'Joe Doe', 234567891, 2, '1201 W University Dr', '', 'Edinburg', 'TX', 78539, 70, '9566657120', '1996-05-29', 'contractor2', 'john.doe@fakeEmail.com');
 
 -- --------------------------------------------------------
 
@@ -263,6 +287,14 @@ CREATE TABLE `contractorsServiceRecords` (
   `chargeService` decimal(10,2) NOT NULL,
   `yearsExperience` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `contractorsServiceRecords`
+--
+
+INSERT INTO `contractorsServiceRecords` (`contractorID`, `serviceID`, `chargeService`, `yearsExperience`) VALUES
+(1, 8, '7.25', 2),
+(2, 8, '8.36', 2);
 
 -- --------------------------------------------------------
 
@@ -400,7 +432,23 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (13, 'auth', '0008_alter_user_username_max_length', '2020-04-16 05:24:45.773343'),
 (14, 'auth', '0009_alter_user_last_name_max_length', '2020-04-16 05:24:45.787343'),
 (15, 'sessions', '0001_initial', '2020-04-16 05:24:45.812572'),
-(16, 'hns', '0001_initial', '2020-04-16 05:40:21.618413');
+(16, 'hns', '0001_initial', '2020-04-16 05:40:21.618413'),
+(17, 'hns', '0002_auto_20200420_2302', '2020-04-20 23:02:23.955942'),
+(18, 'hns', '0003_auto_20200424_1924', '2020-04-24 19:24:12.261746'),
+(19, 'auth', '0010_alter_group_name_max_length', '2020-04-24 20:48:38.753366'),
+(20, 'auth', '0011_update_proxy_permissions', '2020-04-24 20:48:38.775905'),
+(21, 'hns', '0005_auto_20200424_2109', '2020-04-25 22:09:33.040443'),
+(22, 'hns', '0006_auto_20200424_2121', '2020-04-25 22:09:33.073376'),
+(23, 'hns', '0007_users_last_login', '2020-04-25 22:09:33.101232'),
+(24, 'hns', '0008_auto_20200425_2045', '2020-04-25 22:09:33.107701'),
+(25, 'hns', '0009_auto_20200425_2049', '2020-04-25 22:09:33.113864'),
+(26, 'hns', '0010_users_is_active', '2020-04-25 22:09:33.146971'),
+(27, 'hns', '0011_auto_20200425_2140', '2020-04-25 22:09:33.153594'),
+(28, 'hns', '0013_auto_20200426_0412', '2020-05-02 05:03:21.352566'),
+(29, 'hns', '0015_auto_20200428_0149', '2020-05-02 22:53:41.854471'),
+(30, 'hns', '0016_auto_20200502_0448', '2020-05-02 22:53:41.865239'),
+(31, 'hns', '0017_auto_20200502_0456', '2020-05-02 22:53:41.872853'),
+(32, 'hns', '0019_auto_20200502_2244', '2020-05-02 22:55:01.973792');
 
 -- --------------------------------------------------------
 
@@ -413,6 +461,39 @@ CREATE TABLE `django_session` (
   `session_data` longtext NOT NULL,
   `expire_date` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('10bmudpmpekfukzvqbcd75ghssp9eq1b', 'MmJiM2FkMzMyOWRkODYyNTE3MzI1MzIwYzU0MTg2NmQ4MGExZTUzMDp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2JlY29tZUNvbnRyYWN0b3IvIn0=', '2020-05-14 03:13:31.788571'),
+('2hleillbd4r7mklt2srbni23oesgrnfv', 'NjNhZGNmNjEwNTZiM2M5MjhiN2RkOTAyMmEyMDkxMzhlNTlkNTUxMDp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyIsImNyZWF0ZV91c2VyX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2xvZ2luLyJ9', '2020-05-15 00:45:25.125110'),
+('486ea5ctgh48kucodx6sktqbv8kvs04w', 'MmJiM2FkMzMyOWRkODYyNTE3MzI1MzIwYzU0MTg2NmQ4MGExZTUzMDp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2JlY29tZUNvbnRyYWN0b3IvIn0=', '2020-05-13 22:54:59.706498'),
+('4vot1skgbhaqgivdhlao4h8njf7tkwcb', 'ODY4YzY2NDc4OGUwYTdjYzk5OTNiNGIzYzAyMDQ0NzY1MWE0ODA0Njp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2xvZ2luLyIsImFkbWluX2lkIjoxfQ==', '2020-05-15 23:13:22.814197'),
+('56h995bt7mx33twpwxvp35rtsugadiaz', 'OWMyOTE0ZDZkODIzNGViZmZkYzFlNGYyZGIyNGQ0NDYzNTk2YjZiODp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyJ9', '2020-05-16 21:18:06.696485'),
+('8z90z1dj5fpa46pf28k5stpchimeskzn', 'OWMyOTE0ZDZkODIzNGViZmZkYzFlNGYyZGIyNGQ0NDYzNTk2YjZiODp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyJ9', '2020-05-13 19:54:05.945774'),
+('c99os6n47cpsh3phy0s7u51kc504ld4f', 'OWMyOTE0ZDZkODIzNGViZmZkYzFlNGYyZGIyNGQ0NDYzNTk2YjZiODp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyJ9', '2020-05-13 21:11:09.456924'),
+('ca7l5hoqd5klt7ydmtatza2gufjxmzto', 'NmRmZjdlNjllMWE4YTI1ZTgzMGM1MWY5ZmFmMGIxNmYyZjVhMzdmNzp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2JlY29tZUNvbnRyYWN0b3IvIiwiY29udHJhY3Rvcl9pZCI6MX0=', '2020-05-17 08:21:37.669622'),
+('dykzodpq49710zgo8xr0b21olplwxzsi', 'NTI1YmU3OGY2ZTMyYjRjYzQyYmI1ZWRkNTZhNjk3ZDY4YzI4MWQ0MTp7ImNyZWF0ZV91c2VyX2Zyb20iOiIvIiwibG9naW5fZnJvbSI6Imh0dHA6Ly9lYzItMTgtMjE4LTQxLTE0LnVzLWVhc3QtMi5jb21wdXRlLmFtYXpvbmF3cy5jb20vIiwidXNlcl9pZCI6Mn0=', '2020-05-15 22:41:39.615942'),
+('eobfi6z44q7ulo3vr4zkwvx2zrwt2epg', 'N2ZkYjhhZDYwZWY3N2MwN2Q0YzVlNzRlZjE3YWI3MDdhOGU0MjM2NTp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyIsImNvbnRyYWN0b3JfaWQiOjF9', '2020-05-17 08:20:39.205186'),
+('eu0m50yd9q00xcvhr3txd40f0jdzp84a', 'NTU4ZWViNmE4ZmI1MTQzYmJiNTFjMTM2NGRhNTdmYjgwODlkODZjMzp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyIsImFkbWluX2lkIjoxfQ==', '2020-05-16 00:31:24.070347'),
+('gpw7elqxxlvc9qnagrnskm1e4gly2bnv', 'NDRjYWQ4YTJlMTVlYzczYjY5YzhjMjE0Mzg4NWY1OWIxMTc1Mzg5YTp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyIsImNyZWF0ZV91c2VyX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2NyZWF0ZV9hY2NvdW50LyIsInVzZXJfaWQiOjJ9', '2020-05-15 04:51:02.883586'),
+('ikgnqavyfjkcry6q3h9t1u5avehxajv9', 'N2ZkYjhhZDYwZWY3N2MwN2Q0YzVlNzRlZjE3YWI3MDdhOGU0MjM2NTp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyIsImNvbnRyYWN0b3JfaWQiOjF9', '2020-05-16 21:29:41.634505'),
+('kia3ywn8mxwjtmpztl4uhuxpu76rqwn7', 'OWMyOTE0ZDZkODIzNGViZmZkYzFlNGYyZGIyNGQ0NDYzNTk2YjZiODp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyJ9', '2020-05-14 03:01:30.290354'),
+('mn72jdtuz3dlubga7vfjfzdrdz21t8jr', 'OWMyOTE0ZDZkODIzNGViZmZkYzFlNGYyZGIyNGQ0NDYzNTk2YjZiODp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyJ9', '2020-05-14 03:02:51.439411'),
+('p6y1a1qpg5djvu10oxmmo1jmk146qm7p', 'ODY4YzY2NDc4OGUwYTdjYzk5OTNiNGIzYzAyMDQ0NzY1MWE0ODA0Njp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2xvZ2luLyIsImFkbWluX2lkIjoxfQ==', '2020-05-15 23:48:06.147180'),
+('p7bkipckh7mran7zqt6zizidvgblabd5', 'OTFjYjZhMmY5NDg0MmRhOTJiZDZlNGUwNDgwN2MwOTk5YmVhN2E4OTp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2Jvb2tpbmcvYm9va2luZ19pbmZvcm1hdGlvbi81In0=', '2020-05-16 22:17:46.423489'),
+('ru2pvud7mjygrg7sdasgwo0cc78m6c65', 'ODY4YzY2NDc4OGUwYTdjYzk5OTNiNGIzYzAyMDQ0NzY1MWE0ODA0Njp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2xvZ2luLyIsImFkbWluX2lkIjoxfQ==', '2020-05-17 22:31:17.238356'),
+('s99j5cnvzmd2xez0715rnmbjl5ztftgf', 'ODI5MTk0MzIzOWU3N2ZiYjAwMmViN2Q5N2VkYTFjYjE3ZGM2ZDdhZTp7ImNvbnRyYWN0b3JfaWQiOjF9', '2020-05-16 05:37:45.209877'),
+('tbdwarf3fy512cwfgle00zyhd22cu8y0', 'ODY4YzY2NDc4OGUwYTdjYzk5OTNiNGIzYzAyMDQ0NzY1MWE0ODA0Njp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2xvZ2luLyIsImFkbWluX2lkIjoxfQ==', '2020-05-15 19:54:39.006934'),
+('tsm5vcfbpezc4otcanxdt8rn7c6gkot4', 'MzM1ZTAwYTVkNjJiZDZkYjUzNWU0OGIyY2ZjMGFlNjVmYWFkNzM2MDp7InVzZXJfaWQiOjF9', '2020-05-13 15:46:24.467224'),
+('u3wtjwn0ja92sxcaudj3vbpdnnjyvdnx', 'OTUxOTQxNjU4ZmE3YWEwZjIwZjc4YmYxM2Y1NzU3YzE3OWU2OGZlNzp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2Jvb2tpbmcvYm9va2luZ19pbmZvcm1hdGlvbi8xIiwidXNlcl9pZCI6MX0=', '2020-05-17 18:01:32.713224'),
+('unkmy10d27d6cmjcdlu1vq0eq98734z8', 'OWMyOTE0ZDZkODIzNGViZmZkYzFlNGYyZGIyNGQ0NDYzNTk2YjZiODp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyJ9', '2020-05-14 02:08:30.401531'),
+('w41j7dzll3dqmezbykkrt3r4x6bnxqfy', 'OWMyOTE0ZDZkODIzNGViZmZkYzFlNGYyZGIyNGQ0NDYzNTk2YjZiODp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyJ9', '2020-05-16 05:45:21.924696'),
+('yjd2eh6k6flybys20c4ubk3wow2091lz', 'MzM1ZTAwYTVkNjJiZDZkYjUzNWU0OGIyY2ZjMGFlNjVmYWFkNzM2MDp7InVzZXJfaWQiOjF9', '2020-05-13 02:18:35.044696'),
+('yw8g6iuo9620qu1hixw65f8b23biuygq', 'N2ZkYjhhZDYwZWY3N2MwN2Q0YzVlNzRlZjE3YWI3MDdhOGU0MjM2NTp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tLyIsImNvbnRyYWN0b3JfaWQiOjF9', '2020-05-16 04:57:33.172611'),
+('zo09uio7cyq68q1pkn0v6m5yrj5o7m07', 'MWYyNTk1ZDBjODQwMzUzMmU5N2UxMzEyNWVhODhlNGRkMWVjN2ExZDp7ImxvZ2luX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL3NlcnZpY2VzLyIsImNyZWF0ZV91c2VyX2Zyb20iOiJodHRwOi8vZWMyLTE4LTIxOC00MS0xNC51cy1lYXN0LTIuY29tcHV0ZS5hbWF6b25hd3MuY29tL2NyZWF0ZV9hY2NvdW50LyIsInVzZXJfaWQiOjF9', '2020-05-15 00:55:41.796445');
 
 -- --------------------------------------------------------
 
@@ -469,9 +550,20 @@ CREATE TABLE `serviceApplications` (
   `contractorID` int(11) NOT NULL,
   `serviceID` int(11) NOT NULL,
   `dateApp` date NOT NULL,
-  `adminID` int(11) NOT NULL,
-  `dateApproved` date NOT NULL
+  `adminID` int(11) DEFAULT NULL,
+  `dateApproved` date DEFAULT NULL,
+  `chargeService` decimal(10,2) NOT NULL,
+  `yearsExperience` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `serviceApplications`
+--
+
+INSERT INTO `serviceApplications` (`serviceAppID`, `contractorID`, `serviceID`, `dateApp`, `adminID`, `dateApproved`, `chargeService`, `yearsExperience`) VALUES
+(1, 1, 8, '2020-05-03', 1, '2020-05-03', '7.25', 2),
+(2, 2, 8, '2020-05-03', 1, '2020-05-03', '8.36', 2),
+(3, 2, 6, '2020-05-03', NULL, NULL, '10.25', 5);
 
 -- --------------------------------------------------------
 
@@ -484,6 +576,15 @@ CREATE TABLE `serviceCategories` (
   `sub_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `serviceCategories`
+--
+
+INSERT INTO `serviceCategories` (`categoryServiceID`, `sub_name`) VALUES
+(1, 'Cleaning'),
+(2, 'Assembly'),
+(3, 'TV & Electronics');
+
 -- --------------------------------------------------------
 
 --
@@ -495,6 +596,20 @@ CREATE TABLE `services` (
   `title` varchar(100) NOT NULL,
   `categoryServiceID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `services`
+--
+
+INSERT INTO `services` (`serviceID`, `title`, `categoryServiceID`) VALUES
+(1, 'Office Cleaning', 1),
+(2, 'Room Cleaning', 1),
+(3, 'Kitchen Cleaning', 1),
+(4, 'TV Wall Mounting Installation', 3),
+(5, 'Home Theater AV Setup', 3),
+(6, 'Smart Lock Installation', 3),
+(7, 'Exercise Equipment Assembly', 2),
+(8, 'Outdoor Furniture Assembly', 2);
 
 -- --------------------------------------------------------
 
@@ -522,13 +637,21 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
   `dob` date NOT NULL,
-  `phone` int(11) NOT NULL,
+  `phone` varchar(15) NOT NULL,
   `address` varchar(150) NOT NULL,
   `aptNum` varchar(10) NOT NULL,
   `city` varchar(50) NOT NULL,
   `state` varchar(50) NOT NULL,
   `zipCode` int(9) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userID`, `firstName`, `lastName`, `email`, `password`, `dob`, `phone`, `address`, `aptNum`, `city`, `state`, `zipCode`) VALUES
+(1, 'Yessenia', 'Rodriguez', 'yessenia.yess98@hotmail.com', 'hello', '1998-07-13', '9564661730', '554 Rey Salomon St.', '', 'Brownsville', 'TX', 78521),
+(2, 'Clark', 'Kent', 'clark.kent@dailyplanet.com', 'superman', '1938-04-18', '9563814675', '517 Market St', '3D', 'Metropolis', 'IL', 62960);
 
 --
 -- Indexes for dumped tables
@@ -599,7 +722,8 @@ ALTER TABLE `contractorApplications`
 ALTER TABLE `contractors`
   ADD PRIMARY KEY (`contractorID`),
   ADD UNIQUE KEY `scheduleID` (`scheduleID`),
-  ADD UNIQUE KEY `ssn` (`ssn`);
+  ADD UNIQUE KEY `ssn` (`ssn`),
+  ADD UNIQUE KEY `contractors_email_93d0bb8e_uniq` (`email`);
 
 --
 -- Indexes for table `contractorsServiceRecords`
@@ -770,7 +894,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables
@@ -813,7 +937,7 @@ ALTER TABLE `contractorApplications`
 -- Constraints for table `contractors`
 --
 ALTER TABLE `contractors`
-  ADD CONSTRAINT `appContractorConstraint2` FOREIGN KEY (`contractorID`) REFERENCES `contractorApplications` (`contractorID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `contractors_contractorID_9b4db693_fk_contracto` FOREIGN KEY (`contractorID`) REFERENCES `contractorApplications` (`contractorID`);
 
 --
 -- Constraints for table `contractorsServiceRecords`
@@ -860,7 +984,7 @@ ALTER TABLE `paymentInfo`
 -- Constraints for table `rating`
 --
 ALTER TABLE `rating`
-  ADD CONSTRAINT `contractorConstraint2` FOREIGN KEY (`contractorID`) REFERENCES `contractors` (`contractorID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `rating_contractorID_6d2d3d2c_fk_contractors_contractorID` FOREIGN KEY (`contractorID`) REFERENCES `contractors` (`contractorID`),
   ADD CONSTRAINT `userConstraint2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE NO ACTION;
 
 --

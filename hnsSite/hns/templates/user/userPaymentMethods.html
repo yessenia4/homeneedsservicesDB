@@ -13,6 +13,9 @@
             <div class="topnav_logo">
                 <a href="{% url 'home' %}">HomeNeedsService</a>
             </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
+            </div>
         </div>
 
         <div class="userWelcome">
@@ -26,6 +29,36 @@
                 <li class="active"><a href="{% url 'userPayment' %}" disabled="disabled">Payment Methods</a></li>
             </ul>
         </div>
+
+        {% if hasPayment %}
+        <table class="dataView">
+            <thead>
+                <tr>
+                    <th>Card Type</th>
+                    <th>Name on Card</th>
+                    <th>Card Number</th>
+                    <th>Billing Address</th>
+                    <th>Expiration Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for pay in paymentM %}
+                <tr>
+                    <td>{{pay.cardtype}}</td>
+                    <td>{{pay.cardname}}</td>
+                    <td>{{pay.cardnumber}}</td>
+                    <td>{{pay.billingaddress}}</td>
+                    <td>{{pay.expdate}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="noData">
+            <h2>No Payment Method Recorded.</h2>
+            <!--add button to add some-->
+        </div>
+        {% endif %}
 
     </body>
 

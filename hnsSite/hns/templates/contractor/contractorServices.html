@@ -22,12 +22,42 @@
         <div class="usernav">
             <ul>
                 <li><a href="{% url 'contractorProfile' %}">Profile</a></li>
-                <li class="active"><a href="#" disabled="disabled">Services Record</a></li>
-                <li><a href="#">Rating Record</a></li>
-                <li><a href="#">My Schedule</a></li>
-                <li><a href="#">Contract History</a></li>
+                <li class="active"><a href="{% url 'contractorServices' %}" disabled="disabled">Services Record</a></li>
+                <li><a href="{% url 'contractorRatings' %}">Rating Record</a></li>
+                <li><a href="{% url 'contractorSchedule' %}">My Schedule</a></li>
+                <li><a href="{% url 'contractorContracts' %}">Contract History</a></li>
             </ul>
         </div>
+
+        {% if servicesMy %}
+        <table class="dataView">
+            <thead>
+                <tr>
+                    <th>ServiceID</th>
+                    <th>Service Name</th>
+                    <th>Charge for Service</th>
+                    <th>Years of Experience</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for contractorService in servicesMy %}
+                <tr>
+                    <td>{{contractorService.serviceid.serviceid}}</td>
+                    <td>{{contractorService.serviceid.title}}</td>
+                    <td>{{contractorService.chargeservice}}</td>
+                    <td>{{contractorService.yearsexperience}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="noData">
+            <h2>No Services Record.</h2>
+            <div class="add">
+                <a class="btn_link" href="{% url 'contractorServiceApp' %}">Apply to Offer Additional Service(s)</a>
+            </div>
+        </div>
+        {% endif %}
 
     </body>
 

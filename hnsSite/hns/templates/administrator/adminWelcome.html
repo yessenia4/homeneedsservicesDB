@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Welcome</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
+            </div>
+        </div>
+
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{administrator.adminemail}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li class="active"><a href="{% url 'administratorProfile' %}" disabled="disabled">Account</a></li>
+                <li><a href="{% url 'manageUsers' %}">Manage Users</a></li>
+                <li><a href="{% url 'manageContractors' %}">Manage Contractors</a></li>
+                <li><a href="{% url 'manageApp1' %}">Manage Contractor Applications</a></li>
+                <li><a href="{% url 'manageApp2' %}">Manage Add Service Applications</a></li>
+            </ul>
+        </div>
+
+        <table class="userinfo">
+            <tr>
+                <th>Email</th>
+            </tr>
+            <tr>
+                <td>{{administrator.adminemail}}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+            </tr>
+            <tr>
+                <td>{{administrator.adminpassword}}</td>
+            </tr>
+        </table>
+        <!--
+        <div class="edit_delete">
+            <a class="btn_link" href="#">Edit</a>
+            <a class="btn_link" href="#" onclick="return confirm('Are you sure you want to delete your account?')">Delete Account</a>
+        </div>-->
+    </body>
+
+</html>

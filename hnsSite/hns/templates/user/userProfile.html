@@ -13,6 +13,9 @@
             <div class="topnav_logo">
                 <a href="{% url 'home' %}">HomeNeedsService</a>
             </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
+            </div>
         </div>
 
         <div class="userWelcome">
@@ -38,18 +41,16 @@
             </tr>
             <tr>
                 <th>Address</th>
+                {% if user.aptnum %}
+                <th>Apartment Number</th>
+                {% endif %}
             </tr>
             <tr>
                 <td>{{user.address}}</td>
-            </tr>
-            {% if user.aptnum != none %}
-            <tr>
-                <th>Apartment Number</th>
-            </tr>
-            <tr>
+                {% if user.aptnum %}
                 <td>{{user.aptnum}}</td>
+                {% endif %}
             </tr>
-            {% endif %}
             <tr>
                 <th>City</th>
             </tr>

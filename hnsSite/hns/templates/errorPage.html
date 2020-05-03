@@ -16,7 +16,7 @@
         </div>
             
         <div class="topnav_menu">
-          <a class="active" href="{% url 'home' %}" disabled="disabled">Home</a>
+          <a class="active" href="{% url 'home' %}">Home</a>
           <a href="{% url 'services_list' %}">Services</a>
           <a href="{% url 'becomeContractor' %}">Become A Contractor</a>
           {% if have_user %}
@@ -42,8 +42,8 @@
       </div>
         
       <div class="pageContent">
-        <h2 class="header">Error</h2>
-        Page not Found!
+        <h1 class="header">Error</h1>
+        <h3>Page not Found!</h3>
       </div>
 
       <footer>

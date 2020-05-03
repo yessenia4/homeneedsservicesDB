@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Manage Contractors</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
+            </div>
+        </div>
+
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{administrator.adminemail}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li><a href="{% url 'administratorProfile' %}">Account</a></li>
+                <li><a href="{% url 'manageUsers' %}">Manage Users</a></li>
+                <li><a href="{% url 'manageContractors' %}">Manage Contractors</a></li>
+                <li><a href="{% url 'manageApp1' %}">Manage Contractor Applications</a></li>
+                <li class="active"><a href="{% url 'manageApp2' %}" disabled="disabled">Manage Add Service Applications</a></li>
+            </ul>
+        </div>
+
+        {% if hasAppServices %}
+        <table class="dataView">
+            <thead>
+                <tr>
+                    <th>ApplicationID</th>
+                    <th>Contractor</th>
+                    <th>Service</th>
+                    <th>Date Applied</th>
+                    <th>Accept</th>
+                    <th>Reject</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for serviceApp in serviceApps %}
+                <tr>
+                    <td>{{serviceApp.serviceappid}}</td>
+                    <td>{{serviceApp.contractorid.name}}</td>
+                    <td>{{serviceApp.serviceid.title}}</td>
+                    <td>{{serviceApp.dateapp}}</td>
+                    <td>
+                        <a href="{% url 'approveApp2' id=serviceApp.serviceappid %}">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'rejectApp2' id=serviceApp.serviceappid %}" onclick="return confirm('Are you sure you want to reject this application?')">
+                            <i class="fa fa-ban" aria-hidden="true">
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="noData">
+            <h2>No Pending Add Service Applications.</h2>
+        </div>
+        {% endif %}
+
+    </body>
+
+</html>

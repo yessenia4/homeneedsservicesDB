@@ -32,7 +32,7 @@ class NewUserForm(forms.ModelForm):
             'lastname': forms.TextInput(attrs={'class':'input', 'placeholder': 'Last Name', 'maxlength': '20',}),
             'email': forms.EmailInput(attrs={'class':'input', 'placeholder': 'Email', 'maxlength': '100',}),
             'password': forms.PasswordInput(attrs={'class':'input', 'placeholder': 'Password', 'maxlength': '50',}, render_value=True),
-            'dob': forms.DateInput(attrs={'class':'input', 'placeholder': 'MM/DD/YYYY', 'readonly':'true'}),
+            'dob': forms.DateInput(attrs={'class':'input', 'placeholder': 'YYYY/MM/DD', 'readonly':'true'}),
             'address': forms.TextInput(attrs={'class':'input', 'placeholder': 'Address', 'maxlength': '150',}),
             'city': forms.TextInput(attrs={'class':'input', 'placeholder': 'City', 'maxlength': '50',}),
             'state': USStateSelect(),
@@ -41,7 +41,8 @@ class NewUserForm(forms.ModelForm):
 class NewContractorForm(forms.ModelForm):
     ssn = USSocialSecurityNumberField()
     zipcode = USZipCodeField()
-    phone = PhoneField(blank=True)
+    phone = PhoneField(blank=True, help_text='Phone Number')
+    aptnum = CharField(max_length=10, help_text='Apt. Number', widget=forms.TextInput(attrs={'class':'input'}), required=False)
 
     class Meta:
         model = Contractorapplications
@@ -49,27 +50,26 @@ class NewContractorForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class':'input', 'placeholder': 'Name', 'maxlength': '100',}),
             'address': forms.TextInput(attrs={'class':'input', 'placeholder': 'Address', 'maxlength': '150',}),
-            'aptnum': forms.TextInput(attrs={'class':'input', 'placeholder': 'Apt. Number', 'maxlength': '10',}),
             'city': forms.TextInput(attrs={'class':'input', 'placeholder': 'City', 'maxlength': '50',}),
             'state': USStateSelect(),
             'willingtravel': forms.NumberInput(attrs={'class':'input'}),
-            'dob': forms.DateInput(attrs={'class':'input', 'placeholder': 'MM/DD/YY', 'readonly':'true'}),
+            'dob': forms.DateInput(attrs={'class':'input', 'placeholder': 'YYYY/MM/DD', 'readonly':'true'}),
             'email': forms.EmailInput(attrs={'class':'input', 'placeholder': 'Email', 'maxlength': '100',}),
-            'password': forms.PasswordInput(attrs={'class':'input', 'placeholder': 'Password', 'maxlength': '50',}),
+            'password': forms.PasswordInput(attrs={'class':'input', 'placeholder': 'Password', 'maxlength': '50',}, render_value=True),
         }
 
 class ContractForm(forms.ModelForm):
     servicezipcode = USZipCodeField()
+    serviceaptnum = CharField(max_length=10, help_text='Apt. Number', widget=forms.TextInput(attrs={'class':'input'}), required=False)
 
     class Meta:
         model = Contracts
         fields = ['description', 'dateservice', 'starttime', 'servicezipcode', 'serviceaddress', 'serviceaptnum']
         widgets = {
             'description': forms.Textarea(attrs={'class':'input', 'placeholder': 'Description', 'maxlength':'500',}),
-            'dateservice': forms.DateInput(attrs={'class':'input', 'placeholder': 'MM/DD/YY', 'readonly':'true'}),
+            'dateservice': forms.DateInput(attrs={'class':'input', 'placeholder': 'YYYY/MM/DD', 'readonly':'true'}),
             'starttime': forms.TimeInput(attrs={'class':'input'}),
             'serviceaddress': forms.TextInput(attrs={'class':'input', 'placeholder': 'Address', 'maxlength':'150',}),
-            'serviceaptnum': forms.TextInput(attrs={'class':'input', 'placeholder': 'Apt. Number', 'maxlength':'10',}),
         }
 
 class NewPaymentInfoForm(forms.ModelForm):
@@ -96,3 +96,10 @@ class RatingForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class':'input', 'placeholder': 'Title', 'maxlength':'50',}),
             'comments': forms.TextInput(attrs={'class':'input', 'placeholder': 'Comments', 'maxlength':'300',}),
         }
+
+class newServiceForm(forms.ModelForm):
+    #serviceid = forms.ModelChoiceField(queryset=Services.objects.all())
+
+    class Meta:
+        model = Serviceapplications
+        fields = ['serviceid', 'chargeservice', 'yearsexperience']

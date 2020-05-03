@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+    <head>
+        <title>Booking A Service</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    </head>
+   
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+            
+            <div class="topnav_menu">
+                <a href="{% url 'home' %}">Home</a>
+                <a class="active" href="{% url 'services_list' %}" disabled="disabled">Services</a>
+                <a href="{% url 'becomeContractor' %}">Become A Contractor</a>
+                {% if have_user %}
+                    <div class="dropdown">
+                        <button class="dropbtn">My Account 
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="{% url 'userProfile' %}">Profile</a>
+                            <a href="{% url 'userBooking' %}">Booking History</a>
+                            <a href="{% url 'userPayment' %}">Payment Methods</a>
+                            <a href="{% url 'logout' %}">Log Out</a>
+                        </div>
+                    </div>
+                {% elif have_contractor %}
+                <div class="dropdown">
+                    <button class="dropbtn">My Account 
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'contractorProfile' %}">Profile</a>
+                        <a href="{% url 'contractorServices' %}">Service Record</a>
+                        <a href="{% url 'contractorRatings' %}">Rating Record</a>
+                        <a href="{% url 'contractorContracts' %}">Contract History</a>
+                        <a href="{% url 'contractorSchedule' %}">My Schedule</a>
+                        <a href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                </div>
+                {% elif have_admin %}
+                <div class="dropdown">
+                    <button class="dropbtn">My Account 
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'administratorProfile' %}">Profile</a>
+                        <a href="{% url 'manageUsers' %}">Manage Users</a>
+                        <a href="{% url 'manageContractors' %}">Manage Contractors</a>
+                        <a href="{% url 'manageApp1' %}">Manage Contractors Applications</a>
+                        <a href="{% url 'manageApp2' %}">Manage Add Service Applications</a>
+                        <a href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                </div>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="pageContent">
+            <h2 class="header">Booking - {{service}}</h2>
+            
+            {% if availableContractors %}
+            <p>Select a Contractor.</p>
+
+            {% for message in messages %}
+                <div class="alert alert-success">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+
+                    {{ message }}
+
+                </div>
+            {% endfor %}
+           
+            <form class="selectContractor">
+                {% for contractor in availableContractors %}
+                    <div class="contractorData">
+                        <input type="radio" name="buttonContractor" value="{{contractor.contractorid.contractorid.contractorid}}">
+                        <label for="{{contractor.contractorid.contractorid.contractorid}}"><span><span></span></span>{{contractor.contractorid}}</label>
+                    </div>
+                {% endfor %}
+
+                <div class="controlBooking">
+                    <input type="submit" name="Get Contractors" value="Continue to Payment">
+                    <a class="btn_link" href="{% url 'services_list' %}">Cancel</a>
+                </div>
+            </form>
+            {% else %}
+            <h3>We are sorry, but there are no contractors that offer this service.</h3>
+            {% endif %}
+           
+        </div>
+
+        <footer>
+            <!-- Footer main -->
+            <section class="ft-main">
+              <div class="ft-main-item">
+                <ul>
+                  <li><a href="{% url 'services_list' %}">Services</a></li>
+                  <li><a href="{% url 'becomeContractor' %}">Become A Contractor</a></li>
+                  <li><a href="{% url 'login' %}">User Account</a></li>
+                  <li><a href="{% url 'loginContractor' %}">Contractor Account</a></li>
+                  <li><a href="{% url 'loginAdministrator' %}">Administrator Account</a></li>
+                </ul>
+              </div>
+              <div class="ft-main-item">
+                <a href="#">Contact Us</a>
+              </div>
+            </section>
+          
+            <!-- Footer legal -->
+            <section class="ft-legal">
+              <ul class="ft-legal-list">
+                <li><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li>&copy;2020 Group 3 - Fix-it-Felix.</li>
+              </ul>
+            </section>
+        </footer>
+    </body>
+
+</html>

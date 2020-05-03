@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hns', '0014_auto_20200428_0146'),
+        ('hns', '0013_auto_20200426_0412'),
     ]
 
     operations = [
@@ -14,9 +14,5 @@ class Migration(migrations.Migration):
             name='users',
             managers=[
             ],
-        ),
-        migrations.RemoveField(
-            model_name='users',
-            name='last_login',
         ),
     ]

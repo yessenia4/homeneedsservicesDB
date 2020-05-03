@@ -39,16 +39,16 @@ class Contractorapplications(models.Model):
     state = models.CharField(max_length=50)
     zipcode = models.IntegerField()
     willingtravel = models.IntegerField(db_column='willingTravel')  # Field name made lowercase.
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=15)
     dob = models.DateField()
     email = models.CharField(max_length=100)
     password = models.CharField(max_length=50)
     dateapp = models.DateField(db_column='dateApp')  # Field name made lowercase.
-    adminid = models.ForeignKey(Administrators, models.DO_NOTHING, db_column='adminID', default=1)  # Field name made lowercase.
-    dateapproved = models.DateField(db_column='dateApproved')  # Field name made lowercase.
+    adminid = models.ForeignKey(Administrators, models.DO_NOTHING, db_column='adminID', default=None)  # Field name made lowercase.
+    dateapproved = models.DateField(db_column='dateApproved', default=None)  # Field name made lowercase.
 
     def __str__(self):
-        return self.title
+        return self.name
 
     class Meta:
         managed = True
@@ -72,7 +72,7 @@ class Contractors(models.Model):
     email = models.CharField(max_length=100, unique=True)
     
     def __str__(self):
-        return self.title
+        return self.name
 
     class Meta:
         managed = True
@@ -116,7 +116,7 @@ class Contracts(models.Model):
     cancelcontract = models.IntegerField(db_column='cancelContract')  # Field name made lowercase.
 
     def __str__(self):
-        return self.title
+        return self.description
 
     class Meta:
         managed = True
@@ -134,7 +134,7 @@ class Paymentinfo(models.Model):
     expdate = models.DateField(db_column='expDate')  # Field name made lowercase.
 
     def __str__(self):
-        return self.title
+        return self.cardnumber
 
     class Meta:
         managed = True
@@ -173,12 +173,14 @@ class Serviceapplications(models.Model):
     serviceappid = models.IntegerField(db_column='serviceAppID', primary_key=True)  # Field name made lowercase.
     contractorid = models.ForeignKey(Contractors, models.DO_NOTHING, db_column='contractorID', default=1)  # Field name made lowercase.
     serviceid = models.ForeignKey('Services', models.DO_NOTHING, db_column='serviceID', default=1)  # Field name made lowercase.
+    chargeservice = models.DecimalField(db_column='chargeService', max_digits=10, decimal_places=2, default=7.25)  # Field name made lowercase.
+    yearsexperience = models.IntegerField(db_column='yearsExperience', default=0)  # Field name made lowercase.
     dateapp = models.DateField(db_column='dateApp')  # Field name made lowercase.
-    adminid = models.ForeignKey(Administrators, models.DO_NOTHING, db_column='adminID', default=1)  # Field name made lowercase.
-    dateapproved = models.DateField(db_column='dateApproved')  # Field name made lowercase.
+    adminid = models.ForeignKey(Administrators, models.DO_NOTHING, db_column='adminID', default=None)  # Field name made lowercase.
+    dateapproved = models.DateField(db_column='dateApproved', default=None)  # Field name made lowercase.
 
     def __str__(self):
-        return self.title
+        return self.serviceappid
 
     class Meta:
         managed = True
@@ -191,7 +193,7 @@ class Servicecategories(models.Model):
     sub_name = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.title
+        return self.sub_name
 
     class Meta:
         managed = False
@@ -237,7 +239,7 @@ class Users(models.Model):
     zipcode = models.IntegerField(db_column='zipCode')  # Field name made lowercase.
 
     def __str__(self):
-        return self.title
+        return self.firstname
 
     def get_full_name(self):
         '''

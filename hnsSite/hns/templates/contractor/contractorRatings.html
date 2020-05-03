@@ -22,12 +22,36 @@
         <div class="usernav">
             <ul>
                 <li><a href="{% url 'contractorProfile' %}">Profile</a></li>
-                <li><a href="#">Services Record</a></li>
-                <li class="active"><a href="#" disabled="disabled">Rating Record</a></li>
-                <li><a href="#">My Schedule</a></li>
-                <li><a href="#">Contract History</a></li>
+                <li><a href="{% url 'contractorServices' %}">Services Record</a></li>
+                <li class="active"><a href="{% url 'contractorRatings' %}" disabled="disabled">Rating Record</a></li>
+                <li><a href="{% url 'contractorSchedule' %}">My Schedule</a></li>
+                <li><a href="{% url 'contractorContracts' %}">Contract History</a></li>
             </ul>
         </div>
+
+        {% if hasRatings %}
+            {% for rating in ratingMy %}
+            <div class="ratingsView">
+                <div class="row1">
+                    <h3 class="title">{{rating.title}}</h3>
+                    <p class="date">{{rating.date}}</p>
+                </div>
+
+                <div class="row2">
+                    <p class="rating">Rating: {{rating.number_rating}}</p>
+                    <p class="user">by {{rating.userid.firstname}} {{rating.userid.firstname}}</p>
+                </div>
+                
+                <div class="comments">
+                    <p>{{rating.comments}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="noData">
+            <h2>No Rating Record.</h2>
+        </div>
+        {% endif %}
 
     </body>
 

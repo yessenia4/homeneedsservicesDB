@@ -32,9 +32,33 @@
               </div>
             </div>
           {% elif have_contractor %}
-            <a href="{% url 'contractorProfile' %}">My Account</a>
+          <div class="dropdown">
+            <button class="dropbtn">My Account 
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="{% url 'contractorProfile' %}">Profile</a>
+                <a href="{% url 'contractorServices' %}">Service Record</a>
+                <a href="{% url 'contractorRatings' %}">Rating Record</a>
+                <a href="{% url 'contractorContracts' %}">Contract History</a>
+                <a href="{% url 'contractorSchedule' %}">My Schedule</a>
+                <a href="{% url 'logout' %}">Log Out</a>
+            </div>
+          </div>
           {% elif have_admin %}
-            <a href="{% url 'administratorProfile' %}">My Account</a>
+          <div class="dropdown">
+            <button class="dropbtn">My Account 
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="{% url 'administratorProfile' %}">Profile</a>
+                <a href="{% url 'manageUsers' %}">Manage Users</a>
+                <a href="{% url 'manageContractors' %}">Manage Contractors</a>
+                <a href="{% url 'manageApp1' %}">Manage Contractors Applications</a>
+                <a href="{% url 'manageApp2' %}">Manage Add Service Applications</a>
+                <a href="{% url 'logout' %}">Log Out</a>
+            </div>
+          </div>
           {% else %}
             <a href="{% url 'login' %}">Login</a>
           {% endif %}

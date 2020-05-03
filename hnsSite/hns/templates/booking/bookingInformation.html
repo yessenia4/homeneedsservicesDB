@@ -8,21 +8,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
+        <link rel="stylesheet" type="text/css" href="/resources/demos/style.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
         <script>
             $( function() {
-                $( "#id_dateservice" ).datepicker({minDate: new Date(), maxDate: new Date(new Date().setMonth(new Date().getMonth() + 2))});
+                $( "#id_dateservice" ).datepicker({dateFormat: 'yy-mm-dd', minDate: new Date(), maxDate: new Date(new Date().setMonth(new Date().getMonth() + 3))});
                 $('#id_starttime').timepicker({
                     timeFormat: 'h:mm p',
-                    interval: 60,
-                    minTime: '10',
+                    interval: 30,
+                    minTime: '8',
                     maxTime: '6:00pm',
                     defaultTime: '11',
-                    startTime: '10:00',
+                    startTime: '8:00',
                     dynamic: false,
                     dropdown: true,
                     scrollbar: true
@@ -54,9 +54,33 @@
                         </div>
                     </div>
                 {% elif have_contractor %}
-                    <a href="{% url 'userProfile' %}">My Account</a>
+                <div class="dropdown">
+                    <button class="dropbtn">My Account 
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'contractorProfile' %}">Profile</a>
+                        <a href="{% url 'contractorServices' %}">Service Record</a>
+                        <a href="{% url 'contractorRatings' %}">Rating Record</a>
+                        <a href="{% url 'contractorContracts' %}">Contract History</a>
+                        <a href="{% url 'contractorSchedule' %}">My Schedule</a>
+                        <a href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                </div>
                 {% elif have_admin %}
-                    <a href="{% url 'userProfile' %}">My Account</a>
+                <div class="dropdown">
+                    <button class="dropbtn">My Account 
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'administratorProfile' %}">Profile</a>
+                        <a href="{% url 'manageUsers' %}">Manage Users</a>
+                        <a href="{% url 'manageContractors' %}">Manage Contractors</a>
+                        <a href="{% url 'manageApp1' %}">Manage Contractors Applications</a>
+                        <a href="{% url 'manageApp2' %}">Manage Add Service Applications</a>
+                        <a href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                </div>
                 {% else %}
                     <a href="{% url 'login' %}">Login</a>
                 {% endif %}
@@ -77,11 +101,46 @@
 
                     </div>
                 {% endfor %}
-                <form class="becomeUser">
+                <form class="bookingForm" method="POST">
                     {% csrf_token %}
-                    {{ form.as_table }}
-    
-                    <input type="submit" name="Get Contractors" value="Get Available Contractors">
+                    <table>
+                        <tr>
+                            <th colspan="2">Description</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.description}}</td>
+                        </tr>
+                        <tr>
+                            <th>Date</th>
+                            <th>Start Time</th>
+                        </tr>
+                        <tr>
+                            <td>{{form.dateservice}}</td>
+                            <td>{{form.starttime}}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Service Location</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Address</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">{{form.serviceaddress}}</td>
+                        </tr>
+                        <tr>
+                            <th>Apt. Number</th>
+                            <th>Zip Code</th>
+                        </tr>
+                        <tr>
+                            <td>{{form.serviceaptnum}}</td>
+                            <td>{{form.servicezipcode}}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="controlBooking">
+                        <input type="submit" name="Get Contractors" value="Get Available Contractors">
+                        <a class="btn_link" href="{% url 'services_list' %}">Cancel</a>
+                    </div>
                 </form>
             {% else %}
                 <p>You need to be logged in to book service.</p>

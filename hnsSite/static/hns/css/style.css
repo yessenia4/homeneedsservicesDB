@@ -160,6 +160,59 @@ input::-webkit-inner-spin-button {
     color: #333;
 }
 
+/* ~~ Create User/Contractor Account ~~ */
+.editUser {
+    width: 80%;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.editUser table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    border-spacing: 2rem 0.3rem;
+}
+
+.editUser th, td{
+    text-align: left;
+}
+
+.editUser input[type=text], input[type=email], input[type=password], input[type=number], select{
+    width: 100%;
+    padding: 0.7rem;
+    margin: 0.5rem 0rem;
+    margin-bottom: 1.3rem;
+    font-size: 1.05rem;
+}
+
+#id_chargeservice{
+    width: 95%;
+}
+
+.controlEdit {
+    margin: 1rem auto;
+    margin-bottom: 2rem;
+    display: inline-block;
+}
+
+.controlEdit input[type=submit] {
+    color: #f2f2f2;
+    text-align: center;
+    padding: .9rem 1.5rem;
+    margin: 0rem 2rem;
+    text-decoration: none;
+    font-size: 1.05rem;
+    background-color: #00bfff;
+    border-radius: 1rem;
+    border: none;
+}
+
+.controlEdit input[type=submit]:hover{
+    background-color: #ddd;
+    color: black;
+}
+
 /* ~~ Account Profile ~~ */
 .userinfo{
     margin: 1rem auto;
@@ -180,6 +233,72 @@ input::-webkit-inner-spin-button {
 .edit_delete {
     margin: 1rem auto;
     margin-bottom: 2rem;
+}
+
+/* ~~ Displaying Data ~~ */
+.dataView {
+    border-collapse: collapse;
+    margin: 25px auto;
+    border-spacing: 4rem 0.3rem;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+  
+.dataView thead tr {
+    background-color: #00bfff;
+    color: #f2f2f2;
+    text-align: left;
+    font-weight: bold;
+}
+  
+.dataView th, .dataView td {
+    padding: 0.6rem 0.5rem;
+}
+  
+.dataView tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+  
+.dataView tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.noData {
+    margin: 2rem;
+    text-align: center;
+    display: inline-block;
+}
+
+.noData h2{
+    font-weight: normal;
+}
+
+.noData .add{
+    margin: 3rem auto;
+    margin-bottom: 5rem;
+}
+
+.dataView a{
+    color:black;
+}
+
+.calendar-tools li{
+    display: inline;
+}
+
+.calendar-tools {
+    margin: 2rem auto;
+}
+
+.month {
+    width: 80%;
+    margin: 1rem auto;
+}
+
+.month th{
+    background-color: #00bfff;
+    color: #f2f2f2;
 }
 
 /* ~~ Service List ~~ */
@@ -214,6 +333,140 @@ input::-webkit-inner-spin-button {
     padding: 3rem 2.7rem;
     border-radius: 1rem;
 }
+
+/* ~~ Booking Forms ~~*/
+.bookingForm {
+    width: 80%;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.bookingForm table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    border-spacing: 2rem 0.3rem;
+}
+
+.bookingForm th{
+    text-align: left;
+}
+
+.bookingForm input[type=text], input[type=email], input[type=password], input[type=number], select, textarea{
+    width: 100%;
+    padding: 0.7rem;
+    margin: 0.5rem 0rem;
+    margin-bottom: 1.3rem;
+    font-size: 1.05rem;
+}
+
+.controlBooking {
+    margin: 1rem auto;
+    margin-bottom: 2rem;
+    display: inline-block;
+}
+
+.controlBooking input[type=submit] {
+    color: #f2f2f2;
+    text-align: center;
+    padding: .9rem 1.5rem;
+    margin: 0rem 2rem;
+    text-decoration: none;
+    font-size: 1.05rem;
+    background-color: #00bfff;
+    border-radius: 1rem;
+    border: none;
+}
+
+.controlBooking input[type=submit]:hover{
+    background-color: #ddd;
+    color: black;
+}
+
+.selectContractor{
+    margin: 2rem 0;
+}
+
+/* styling for radio buttons - http://code.iamkate.com/html-and-css/styling-checkboxes-and-radio-buttons/*/
+.contractorData {
+    margin: 0.7rem auto;
+    width: 100%;
+}
+
+.contractorData label {
+    margin-right: 15px;
+    line-height: 32px;
+  }
+  
+.contractorData input[type=radio] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+  
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    margin-right: 5px;
+  
+    position: relative;
+    top: 4px;
+}
+  
+.contractorData input[type=radio]:checked {
+    border: 7px solid #00bfff;
+}
+
+.contractorData label {
+    font-size: 1.55rem;
+}
+
+.contractorData input[type=radio]:not(old){
+    width     : 3rem;
+    margin    : 0;
+    padding   : 0;
+    font-size : 2rem;
+    opacity   : 0;
+}
+
+.contractorData input[type=radio]:not(old) + label{
+  display      : inline-block;
+  margin-left  : -2rem;
+  line-height  : 2rem;
+}
+
+.contractorData input[type=radio]:not(old) + label > span{
+    display          : inline-block;
+    width            : 1.5rem;
+    height           : 1.5rem;
+    margin           : 0.25rem 0.5rem 0.25rem 0.25rem;
+    border           : 0.0625rem solid rgb(192,192,192);
+    border-radius    : 0.25rem;
+    background       : rgb(224,224,224);
+    background-image :    -moz-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+    background-image :     -ms-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+    background-image :      -o-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+    background-image : -webkit-linear-gradient(rgb(240,240,240),rgb(224,224,224));
+    background-image :         linear-gradient(rgb(240,240,240),rgb(224,224,224));
+    vertical-align   : bottom;
+}
+
+.contractorData input[type=radio]:not(old):checked + label > span > span{
+    display          : block;
+    width            : 1.15rem;
+    height           : 1.08rem;
+    margin           : 0.125rem;
+    border           : 0.0625rem solid rgb(0,134,179);
+    border-radius    : 0.125rem;
+    background       : rgb(0,191,255);
+    background-image :    -moz-linear-gradient(rgb(128,223,255),rgb(0,191,255));
+    background-image :     -ms-linear-gradient(rgb(128,223,255),rgb(0,191,255));
+    background-image :      -o-linear-gradient(rgb(128,223,255),rgb(0,191,255));
+    background-image : -webkit-linear-gradient(rgb(128,223,255),rgb(0,191,255));
+    background-image :         linear-gradient(rgb(128,223,255),rgb(0,191,255));
+  }
 
 /* ~~ Top User Welcome Bar ~~ */
 .userWelcome{

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Manage Contractors</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
+            </div>
+        </div>
+
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{administrator.adminemail}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li><a href="{% url 'administratorProfile' %}">Account</a></li>
+                <li><a href="{% url 'manageUsers' %}">Manage Users</a></li>
+                <li><a href="{% url 'manageContractors' %}">Manage Contractors</a></li>
+                <li class="active"><a href="{% url 'manageApp1' %}" disabled="disabled">Manage Contractor Applications</a></li>
+                <li><a href="{% url 'manageApp2' %}">Manage Add Service Applications</a></li>
+            </ul>
+        </div>
+
+        {% if hasContractors %}
+        <table class="dataView">
+            <thead>
+                <tr>
+                    <th>ContractorID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>SSN</th>
+                    <th>D.O.B.</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Apt. Num</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Willing Travel Distance</th>
+                    <th>Date Applied</th>
+                    <th>Accept</th>
+                    <th>Reject</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for contractorApp in contractorApps %}
+                <tr>
+                    <td>{{contractorApp.contractorid}}</td>
+                    <td>{{contractorApp.name}}</td>
+                    <td>{{contractorApp.email}}</td>
+                    <td>{{contractorApp.password}}</td>
+                    <td>{{contractorApp.ssn}}</td>
+                    <td>{{contractorApp.dob}}</td>
+                    <td>{{contractorApp.phone}}</td>
+                    <td>{{contractorApp.address}}</td>
+                    <td>{{contractorApp.aptnum}}</td>
+                    <td>{{contractorApp.city}}</td>
+                    <td>{{contractorApp.state}}</td>
+                    <td>{{contractorApp.zipcode}}</td>
+                    <td>{{contractorApp.willingtravel}}</td>
+                    <td>{{contractorApp.dateapp}}</td>
+                    <td>
+                        <a href="{% url 'approveApp1' id=contractorApp.contractorid %}">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'rejectApp1' id=contractorApp.contractorid %}" onclick="return confirm('Are you sure you want to reject this application?')">
+                            <i class="fa fa-ban" aria-hidden="true">
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="noData">
+            <h2>No Pending Contractor Applications.</h2>
+        </div>
+        {% endif %}
+
+    </body>
+
+</html>

@@ -12,7 +12,7 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             $( function() {
-                $( "#id_dob" ).datepicker({changeMonth: true, changeYear: true, yearRange: "-100:+0", minDate: new Date()});
+                $( "#id_dob" ).datepicker({changeMonth: true, changeYear: true, yearRange: "-100:+0", minDate: new Date(), dateFormat: 'yy-mm-dd'});
             } );
         </script>
     </head>
@@ -21,6 +21,9 @@
         <div class="topnav">
             <div class="topnav_logo">
                 <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
             </div>
         </div>
 
@@ -45,7 +48,7 @@
             </div>
         {% endfor %}
 
-        <form class="becomeUser" method="POST">
+        <form class="editUser" method="POST">
             {% csrf_token %}
 
             <table>
@@ -101,7 +104,7 @@
                 </tr>
             </table>
 
-            <div class="edit_delete">
+            <div class="controlEdit">
                 <input type="submit" name="Edit Account" value="Save">
                 <a class="btn_link" href="{% url 'userProfile' %}">Cancel</a>
             </div>

@@ -22,11 +22,30 @@
         <div class="usernav">
             <ul>
                 <li><a href="{% url 'contractorProfile' %}">Profile</a></li>
-                <li><a href="#">Services Record</a></li>
-                <li><a href="#">Rating Record</a></li>
+                <li><a href="{% url 'contractorServices' %}">Services Record</a></li>
+                <li><a href="{% url 'contractorRatings' %}">Rating Record</a></li>
                 <li class="active"><a href="#" disabled="disabled">My Schedule</a></li>
-                <li><a href="#">Contract History</a></li>
+                <li><a href="{% url 'contractorContracts' %}">Contract History</a></li>
             </ul>
+        </div>
+
+        <ul class="calendar-tools">
+            <li>
+                <a class="btn_link" href={{ previous_month }}>
+                    Previous month
+                </a>
+            </li>
+            <li>
+                <a class="btn_link" href={{ next_month }}>
+                    Next month
+                </a>
+            </li>
+        </ul>
+
+        {{ calendar }}
+
+        <div class="controlEdit">
+            <a class="btn_link" href="#">Add Event</a>
         </div>
 
     </body>

@@ -13,6 +13,9 @@
             <div class="topnav_logo">
                 <a href="{% url 'home' %}">HomeNeedsService</a>
             </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
+            </div>
         </div>
 
         <div class="userWelcome">
@@ -26,6 +29,32 @@
                 <li><a href="{% url 'userPayment' %}">Payment Methods</a></li>
             </ul>
         </div>
+
+        {% if hasBooking %}
+        <table class="dataView">
+            <thead>
+                <tr>
+                    <th>BookingID</th>
+                    <th>Date of Service</th>
+                    <th>Date Booked</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for booking in bookings %}
+                <tr>
+                    <td>{{booking.contractid}}</td>
+                    <td>{{booking.dateservice}}</td>
+                    <td>{{booking.datecontract}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="noData">
+            <h2>No Booking History.</h2>
+            <!--add button to take to services to begin booking-->
+        </div>
+        {% endif %}
 
     </body>
 

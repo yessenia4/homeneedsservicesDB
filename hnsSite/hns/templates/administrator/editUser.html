@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="en">
     <head>
-        <title>Create User Account</title>
+        <title>Manage Users</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
@@ -22,17 +22,35 @@
             <div class="topnav_logo">
                 <a href="{% url 'home' %}">HomeNeedsService</a>
             </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
+            </div>
         </div>
 
-        <h2 class="header">Create User Account</h2>
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{administrator.adminemail}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li><a href="{% url 'administratorProfile' %}">Account</a></li>
+                <li class="active"><a href="{% url 'manageUsers' %}" disabled="disabled">Manage Users</a></li>
+                <li><a href="{% url 'manageContractors' %}">Manage Contractors</a></li>
+                <li><a href="{% url 'manageApp1' %}">Manage Contractor Applications</a></li>
+                <li><a href="{% url 'manageApp2' %}">Manage Add Service Applications</a></li>
+            </ul>
+        </div>
 
         {% for message in messages %}
             <div class="alert alert-success">
                 <a class="close" href="#" data-dismiss="alert">×</a>
+
                 {{ message }}
+
             </div>
         {% endfor %}
-        <form class="becomeUser" method="POST">
+
+        <form class="editUser" method="POST">
             {% csrf_token %}
 
             <table>
@@ -78,7 +96,7 @@
                     <th colspan="2">{{form.email.label}}</th>
                 </tr>
                 <tr>
-                    <td colspan="2">{{form.email}}</td>
+                    <td colspan="2">{{user.email}}</td>
                 </tr>
                 <tr>
                     <th colspan="2">{{form.password.label}}</th>
@@ -88,9 +106,9 @@
                 </tr>
             </table>
 
-            <input type="submit" name="Create Account">
-            <div class="checkAccount">
-                Already have an account? <a href="{% url 'login' %}">Login</a>
+            <div class="controlEdit">
+                <input type="submit" name="Edit Account" value="Save">
+                <a class="btn_link" href="{% url 'manageUsers' %}">Cancel</a>
             </div>
         </form>
     </body>

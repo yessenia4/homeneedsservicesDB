@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Manage Users</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
+            </div>
+        </div>
+
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{administrator.adminemail}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li><a href="{% url 'administratorProfile' %}">Account</a></li>
+                <li class="active"><a href="{% url 'manageUsers' %}" disabled="disabled">Manage Users</a></li>
+                <li><a href="{% url 'manageContractors' %}">Manage Contractors</a></li>
+                <li><a href="{% url 'manageApp1' %}">Manage Contractor Applications</a></li>
+                <li><a href="{% url 'manageApp2' %}">Manage Add Service Applications</a></li>
+            </ul>
+        </div>
+
+        {% if hasUsers %}
+        <table class="dataView">
+            <thead>
+                <tr>
+                    <th>UserID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>D.O.B</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Apt. Num</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{user.userid}}</td>
+                    <td>{{user.firstname}}</td>
+                    <td>{{user.lastname}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.password}}</td>
+                    <td>{{user.dob}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>{{user.address}}</td>
+                    <td>{{user.aptnum}}</td>
+                    <td>{{user.city}}</td>
+                    <td>{{user.state}}</td>
+                    <td>{{user.zipcode}}</td>
+                    <td>
+                        <a href="{% url 'adminEditUser' id=user.userid %}">
+                            <i class="w3-margin-left fa fa-pencil"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'adminDeleteAccount' accountType='user' id=user.userid %}" onclick="return confirm('Are you sure you want to delete this account?')">
+                            <i class="w3-margin-left fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="noData">
+            <h2>No Users Available.</h2>
+        </div>
+        {% endif %}
+    </body>
+
+</html>

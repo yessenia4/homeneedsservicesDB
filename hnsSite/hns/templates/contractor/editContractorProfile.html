@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Welcome</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+        </div>
+
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{contractor.name}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li class="active"><a href="{% url 'contractorProfile' %}" disabled="disabled">Profile</a></li>
+                <li><a href="{% url 'contractorServices' %}">Services Record</a></li>
+                <li><a href="{% url 'contractorRatings' %}">Rating Record</a></li>
+                <li><a href="{% url 'contractorSchedule' %}">My Schedule</a></li>
+                <li><a href="{% url 'contractorContracts' %}">Contract History</a></li>
+            </ul>
+        </div>
+
+        {% for message in messages %}
+                <div class="alert alert-success">
+                    <a class="close" href="#" data-dismiss="alert">×</a>
+
+                    {{ message }}
+
+                </div>
+            {% endfor %}
+
+            <form class="editUser" method="POST">
+                {% csrf_token %}
+                
+                <table>
+                    <tr>
+                        <th colspan="3">{{form.name.label}}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3">{{form.name}}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">{{form.address.label}}</th>
+                        <th>{{form.aptnum.label}}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{form.address}}</td>
+                        <td colspan="3">{{form.aptnum}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{form.city.label}}</th>
+                        <th>{{form.state.label}}</th>
+                        <th>{{form.zipcode.label}}</th>
+                    </tr>
+                    <tr>
+                        <td>{{form.city}}</td>
+                        <td>{{form.state}}</td>
+                        <td>{{form.zipcode}}</td>
+                    </tr>
+                    <tr>
+                        <th>SSN</th>
+                        <th>D.O.B</th>
+                        <th>{{form.phone.label}}</th>
+                    </tr>
+                    <tr>
+                        <td>{{contractor.ssn}}</td>
+                        <td>{{form.dob}}</td>
+                        <td>{{form.phone}}</td>
+                    </tr>
+                    <tr>
+                        <th>Distance Willing to Travel for Job in Miles</th>
+                    </tr>
+                    <tr>
+                        <td>{{form.willingtravel}}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3">{{form.email.label}}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3">{{contractor.email}}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3">{{form.password.label}}</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3">{{form.password}}</td>
+                    </tr>
+                </table>
+
+                <div class="controlEdit">
+                    <input type="submit" name="Edit Account" value="Save">
+                    <a class="btn_link" href="{% url 'contractorProfile' %}">Cancel</a>
+                </div>
+            </form>
+    </body>
+
+</html>

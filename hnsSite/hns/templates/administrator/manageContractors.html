@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Manage Contractors</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type='text/css'>
+    </head>
+
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
+            </div>
+        </div>
+
+        <div class="userWelcome">
+            <h2 class="header">Welcome {{administrator.adminemail}}!</h2>
+        </div>
+        
+        <div class="usernav">
+            <ul>
+                <li><a href="{% url 'administratorProfile' %}">Account</a></li>
+                <li><a href="{% url 'manageUsers' %}">Manage Users</a></li>
+                <li class="active"><a href="{% url 'manageContractors' %}" disabled="disabled">Manage Contractors</a></li>
+                <li><a href="{% url 'manageApp1' %}">Manage Contractor Applications</a></li>
+                <li><a href="{% url 'manageApp2' %}">Manage Add Service Applications</a></li>
+            </ul>
+        </div>
+
+        {% if hasContractors %}
+        <table class="dataView">
+            <thead>
+                <tr>
+                    <th>ContractorID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>SSN</th>
+                    <th>D.O.B.</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Apt. Num</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Willing Travel Distance</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for contractor in contractors %}
+                    <tr>
+                        <td>{{contractor.contractorid.contractorid}}</td>
+                        <td>{{contractor.name}}</td>
+                        <td>{{contractor.email}}</td>
+                        <td>{{contractor.password}}</td>
+                        <td>{{contractor.ssn}}</td>
+                        <td>{{contractor.dob}}</td>
+                        <td>{{contractor.phone}}</td>
+                        <td>{{contractor.address}}</td>
+                        <td>{{contractor.aptnum}}</td>
+                        <td>{{contractor.city}}</td>
+                        <td>{{contractor.state}}</td>
+                        <td>{{contractor.zipcode}}</td>
+                        <td>{{contractor.willingtravel}}</td>
+                        <td>
+                            <a href="#">
+                                <i class="w3-margin-left fa fa-pencil"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" onclick="return confirm('Are you sure you want to delete this account?')">
+                                <i class="w3-margin-left fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="noData">
+            <h2>No Contractors Available.</h2>
+        </div>
+        {% endif %}
+
+    </body>
+
+</html>

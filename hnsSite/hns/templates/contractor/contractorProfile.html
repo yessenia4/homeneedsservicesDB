@@ -22,10 +22,10 @@
         <div class="usernav">
             <ul>
                 <li class="active"><a href="{% url 'contractorProfile' %}" disabled="disabled">Profile</a></li>
-                <li><a href="#">Services Record</a></li>
-                <li><a href="#">Rating Record</a></li>
-                <li><a href="#">My Schedule</a></li>
-                <li><a href="#">Contract History</a></li>
+                <li><a href="{% url 'contractorServices' %}">Services Record</a></li>
+                <li><a href="{% url 'contractorRatings' %}">Rating Record</a></li>
+                <li><a href="{% url 'contractorSchedule' %}">My Schedule</a></li>
+                <li><a href="{% url 'contractorContracts' %}">Contract History</a></li>
             </ul>
         </div>
 
@@ -38,18 +38,17 @@
             </tr>
             <tr>
                 <th>Address</th>
-            </tr>
-            <tr>
-                <th>{{contractor.address}}</th>
-            </tr>
-            {% if user.aptnum == null %}
-            <tr>
+                {% if contractor.aptnum %}
                 <th>Apartment Number</th>
+                {% endif %}
+            </tr>
             </tr>
             <tr>
+                <td>{{contractor.address}}</td>
+                {% if contractor.aptnum %}
                 <td>{{contractor.aptnum}}</td>
+                {% endif %}
             </tr>
-            {% endif %}
             <tr>
                 <th>City</th>
                 <th>State</th>
@@ -59,6 +58,12 @@
                 <td>{{contractor.city}}</td>
                 <td>{{contractor.state}}</td>
                 <td>{{contractor.zipcode}}</td>
+            </tr>
+                <th>Distance Willing to Travel for Job in Miles</th>
+            <tr>
+            </tr>
+            <tr>
+                <td>{{contractor.willingtravel}}</td>
             </tr>
             <tr>
                 <th>SSN</th>
@@ -85,8 +90,8 @@
         </table>
 
         <div class="edit_delete">
-            <a class="btn_link" href="#">Edit</a>
-            <a class="btn_link" href="#">Delete Account</a>
+            <a class="btn_link" href="{% url 'contractorProfile_edit' %}">Edit</a>
+            <a class="btn_link" href="{% url 'deleteAccount' %}" onclick="return confirm('Are you sure you want to delete your account?')">Delete Account</a>
         </div>
     </body>
 

@@ -22,12 +22,38 @@
         <div class="usernav">
             <ul>
                 <li><a href="{% url 'contractorProfile' %}">Profile</a></li>
-                <li><a href="#">Services Record</a></li>
-                <li><a href="#">Rating Record</a></li>
-                <li><a href="#">My Schedule</a></li>
-                <li class="active"><a href="#" disabled="disabled">Contract History</a></li>
+                <li><a href="{% url 'contractorServices' %}">Services Record</a></li>
+                <li><a href="{% url 'contractorRatings' %}">Rating Record</a></li>
+                <li><a href="{% url 'contractorSchedule' %}">My Schedule</a></li>
+                <li class="active"><a href="{% url 'contractorContracts' %}" disabled="disabled">Contract History</a></li>
             </ul>
         </div>
+
+        {% if hasContracts %}
+        <table class="dataView">
+            <thead>
+                <tr>
+                    <th>BookingID</th>
+                    <th>Date of Service</th>
+                    <th>Date Booked</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for booking in contractsMy %}
+                <tr>
+                    <td>{{booking.contractid}}</td>
+                    <td>{{booking.dateservice}}</td>
+                    <td>{{booking.datecontract}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="noData">
+            <h2>No Contract History.</h2>
+            <!--add button to take to services to begin booking-->
+        </div>
+        {% endif %}
 
     </body>
 

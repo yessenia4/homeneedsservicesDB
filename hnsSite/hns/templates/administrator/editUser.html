@@ -15,6 +15,17 @@
                 $( "#id_dob" ).datepicker({changeMonth: true, changeYear: true, yearRange: "-100:+0", minDate: new Date(), dateFormat: 'yy-mm-dd'});
             } );
         </script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myDIV");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -42,8 +53,8 @@
         </div>
 
         {% for message in messages %}
-            <div class="alert alert-success">
-                <a class="close" href="#" data-dismiss="alert">×</a>
+            <div id="myDIV" class="alert alert-success">
+                <i class="fa fa-close" onclick="myFunction()"></i>
 
                 {{ message }}
 

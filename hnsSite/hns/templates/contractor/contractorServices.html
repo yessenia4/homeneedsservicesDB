@@ -13,6 +13,9 @@
             <div class="topnav_logo">
                 <a href="{% url 'home' %}">HomeNeedsService</a>
             </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
+            </div>
         </div>
 
         <div class="userWelcome">
@@ -53,11 +56,12 @@
         {% else %}
         <div class="noData">
             <h2>No Services Record.</h2>
-            <div class="add">
-                <a class="btn_link" href="{% url 'contractorServiceApp' %}">Apply to Offer Additional Service(s)</a>
-            </div>
         </div>
         {% endif %}
+
+        <div class="add">
+            <a class="btn_link" href="{% url 'contractorServiceApp' %}">Apply to Offer Additional Service</a>
+        </div>
 
     </body>
 

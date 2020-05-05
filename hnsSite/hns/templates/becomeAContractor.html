@@ -9,11 +9,23 @@
         <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="/resources/demos/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+            function myFunction2() {
+                var x = document.getElementById("myDIV");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            }
+        </script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             $( function() {
                 $( "#id_dob" ).datepicker({changeMonth: true, changeYear: true, yearRange: "-100:+0", maxDate: new Date(), dateFormat: 'yy-mm-dd'});
+                $( "#id_dob" ).on('keydown paste', function(e){e.preventDefault();})
             } );
         </script>
     </head>
@@ -26,8 +38,8 @@
             
             <div class="topnav_menu">
                 <a href="{% url 'home' %}">Home</a>
-                <a class="active" href="{% url 'services_list' %}" disabled="disabled">Services</a>
-                <a href="{% url 'becomeContractor' %}">Become A Contractor</a>
+                <a href="{% url 'services_list' %}">Services</a>
+                <a class="active" href="{% url 'becomeContractor' %}" disabled="disabled">Become A Contractor</a>
                 {% if have_user %}
                     <div class="dropdown">
                         <button class="dropbtn">My Account 
@@ -79,8 +91,8 @@
             <p>Get easy access to hundreds of potential jobs within your area and schedule.</p>
 
             {% for message in messages %}
-                <div class="alert alert-success">
-                    <a class="close" href="#" data-dismiss="alert">×</a>
+                <div id="myDIV" class="alert alert-success">
+                    <i class="fa fa-close" onclick="myFunction2()"></i>
 
                     {{ message }}
 

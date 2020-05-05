@@ -6,12 +6,36 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+            function myFunction2() {
+                var x = document.getElementById("myDIV");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            }
+        </script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $( function() {
+                $( "#id_dob" ).datepicker({changeMonth: true, changeYear: true, yearRange: "-100:+0", maxDate: new Date(), dateFormat: 'yy-mm-dd'});
+                $( "#id_dob" ).on('keydown paste', function(e){e.preventDefault();})
+            } );
+        </script>
     </head>
 
     <body>
         <div class="topnav">
             <div class="topnav_logo">
                 <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+            <div class="topnav_menu">
+                <a href="{% url 'logoutProfile' %}">Log Out</a>
             </div>
         </div>
 
@@ -30,77 +54,77 @@
         </div>
 
         {% for message in messages %}
-                <div class="alert alert-success">
-                    <a class="close" href="#" data-dismiss="alert">×</a>
+            <div id="myDIV" class="alert alert-success">
+                <i class="fa fa-close" onclick="myFunction2()"></i>
 
-                    {{ message }}
+                {{ message }}
 
-                </div>
-            {% endfor %}
+            </div>
+        {% endfor %}
 
-            <form class="editUser" method="POST">
-                {% csrf_token %}
+        <form class="editUser" method="POST">
+            {% csrf_token %}
                 
-                <table>
-                    <tr>
-                        <th colspan="3">{{form.name.label}}</th>
-                    </tr>
-                    <tr>
-                        <td colspan="3">{{form.name}}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">{{form.address.label}}</th>
-                        <th>{{form.aptnum.label}}</th>
-                    </tr>
-                    <tr>
-                        <td colspan="2">{{form.address}}</td>
-                        <td colspan="3">{{form.aptnum}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{form.city.label}}</th>
-                        <th>{{form.state.label}}</th>
-                        <th>{{form.zipcode.label}}</th>
-                    </tr>
-                    <tr>
-                        <td>{{form.city}}</td>
-                        <td>{{form.state}}</td>
-                        <td>{{form.zipcode}}</td>
-                    </tr>
-                    <tr>
-                        <th>SSN</th>
-                        <th>D.O.B</th>
-                        <th>{{form.phone.label}}</th>
-                    </tr>
-                    <tr>
-                        <td>{{contractor.ssn}}</td>
-                        <td>{{form.dob}}</td>
-                        <td>{{form.phone}}</td>
-                    </tr>
-                    <tr>
-                        <th>Distance Willing to Travel for Job in Miles</th>
-                    </tr>
-                    <tr>
-                        <td>{{form.willingtravel}}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="3">{{form.email.label}}</th>
-                    </tr>
-                    <tr>
-                        <td colspan="3">{{contractor.email}}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="3">{{form.password.label}}</th>
-                    </tr>
-                    <tr>
-                        <td colspan="3">{{form.password}}</td>
-                    </tr>
-                </table>
+            <table>
+                <tr>
+                    <th colspan="3">{{form.name.label}}</th>
+                </tr>
+                <tr>
+                    <td colspan="3">{{form.name}}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">{{form.address.label}}</th>
+                    <th>{{form.aptnum.label}}</th>
+                </tr>
+                <tr>
+                    <td colspan="2">{{form.address}}</td>
+                    <td colspan="3">{{form.aptnum}}</td>
+                </tr>
+                <tr>
+                    <th>{{form.city.label}}</th>
+                    <th>{{form.state.label}}</th>
+                    <th>{{form.zipcode.label}}</th>
+                </tr>
+                <tr>
+                    <td>{{form.city}}</td>
+                    <td>{{form.state}}</td>
+                    <td>{{form.zipcode}}</td>
+                </tr>
+                <tr>
+                    <th>SSN</th>
+                    <th>D.O.B</th>
+                    <th>{{form.phone.label}}</th>
+                </tr>
+                <tr>
+                    <td>{{contractor.ssn}}</td>
+                    <td>{{form.dob}}</td>
+                    <td>{{form.phone}}</td>
+                </tr>
+                <tr>
+                    <th>Distance Willing to Travel for Job in Miles</th>
+                </tr>
+                <tr>
+                    <td>{{form.willingtravel}}</td>
+                </tr>
+                <tr>
+                    <th colspan="3">{{form.email.label}}</th>
+                </tr>
+                <tr>
+                    <td colspan="3">{{contractor.email}}</td>
+                </tr>
+                <tr>
+                    <th colspan="3">{{form.password.label}}</th>
+                </tr>
+                <tr>
+                    <td colspan="3">{{form.password}}</td>
+                </tr>
+            </table>
 
-                <div class="controlEdit">
-                    <input type="submit" name="Edit Account" value="Save">
-                    <a class="btn_link" href="{% url 'contractorProfile' %}">Cancel</a>
-                </div>
-            </form>
+            <div class="controlEdit">
+                <input type="submit" name="Edit Account" value="Save">
+                <a class="btn_link" href="{% url 'contractorProfile' %}">Cancel</a>
+            </div>
+        </form>
     </body>
 
 </html>

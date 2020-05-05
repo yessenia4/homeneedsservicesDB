@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+    <head>
+        <title>Booking A Service</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+    </head>
+   
+    <body>
+        <div class="topnav">
+            <div class="topnav_logo">
+                <a href="{% url 'home' %}">HomeNeedsService</a>
+            </div>
+            
+            <div class="topnav_menu">
+                <a href="{% url 'home' %}">Home</a>
+                <a class="active" href="{% url 'services_list' %}" disabled="disabled">Services</a>
+                <a href="{% url 'becomeContractor' %}">Become A Contractor</a>
+                {% if have_user %}
+                    <div class="dropdown">
+                        <button class="dropbtn">My Account 
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="{% url 'userProfile' %}">Profile</a>
+                            <a href="{% url 'userBooking' %}">Booking History</a>
+                            <a href="{% url 'userPayment' %}">Payment Methods</a>
+                            <a href="{% url 'logout' %}">Log Out</a>
+                        </div>
+                    </div>
+                {% elif have_contractor %}
+                <div class="dropdown">
+                    <button class="dropbtn">My Account 
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'contractorProfile' %}">Profile</a>
+                        <a href="{% url 'contractorServices' %}">Service Record</a>
+                        <a href="{% url 'contractorRatings' %}">Rating Record</a>
+                        <a href="{% url 'contractorContracts' %}">Contract History</a>
+                        <a href="{% url 'contractorSchedule' %}">My Schedule</a>
+                        <a href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                </div>
+                {% elif have_admin %}
+                <div class="dropdown">
+                    <button class="dropbtn">My Account 
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'administratorProfile' %}">Profile</a>
+                        <a href="{% url 'manageUsers' %}">Manage Users</a>
+                        <a href="{% url 'manageContractors' %}">Manage Contractors</a>
+                        <a href="{% url 'manageApp1' %}">Manage Contractors Applications</a>
+                        <a href="{% url 'manageApp2' %}">Manage Add Service Applications</a>
+                        <a href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                </div>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="pageContent">
+            <h2 class="header">Booking - {{service}}</h2>
+            
+            <p>Confirm your booking.</p>
+
+            <table class="confirmContract">
+                <thead>
+                    <tr>
+                        <th colspan="2">Time of Booking</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Day</th>
+                        <th>Time</th>
+                    </tr>
+                    <tr>
+                        <td>{{dateService}}</td>
+                        <td>{{timeService}}</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th colspan="2">Location of Booking</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th colspan="2">Address</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{address}}</td>
+                    </tr>
+                    <tr>
+                        <th>Apt. Number</th>
+                        <th>Zip Code</th>
+                    </tr>
+                    <tr>
+                        {% if aptnum != 'none' %}
+                        <td>{{aptnum}}</td>
+                        {% else %}
+                        <td></td>
+                        {% endif %}
+                        <td>{{zipcode}}</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th colspan="2">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">{{description}}</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th colspan="2">Contractor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th colspan="2">Name</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{contractor}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                    <tr>
+                        <td>{{contractor.email}}</td>
+                        <td>{{contractor.phone}}</td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th colspan="2">Payment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th colspan="2">Name on Card</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{payment.cardname}}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Card Number</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{payment}}</td>
+                    </tr>
+                    <tr>
+                        <th>CVV</th>
+                        <th>Exp. Date</th>
+                    </tr>
+                    <tr>
+                        <td>{{payment.cvv}}</td>
+                        <td>{{payment.expdate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <form class="confirmForm" method="POST">
+                {% csrf_token %}
+                <div class="controlBooking">
+                    <input type="submit" name="confirmNew" value="Book">
+                    <a class="btn_link" href="{% url 'services_list' %}">Cancel</a>
+                </div>
+            </form>
+           
+        </div>
+
+        <footer>
+            <!-- Footer main -->
+            <section class="ft-main">
+              <div class="ft-main-item">
+                <ul>
+                  <li><a href="{% url 'services_list' %}">Services</a></li>
+                  <li><a href="{% url 'becomeContractor' %}">Become A Contractor</a></li>
+                  <li><a href="{% url 'login' %}">User Account</a></li>
+                  <li><a href="{% url 'loginContractor' %}">Contractor Account</a></li>
+                  <li><a href="{% url 'loginAdministrator' %}">Administrator Account</a></li>
+                </ul>
+              </div>
+              <div class="ft-main-item">
+                <a href="#">Contact Us</a>
+              </div>
+            </section>
+          
+            <!-- Footer legal -->
+            <section class="ft-legal">
+              <ul class="ft-legal-list">
+                <li><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li>&copy;2020 Group 3 - Fix-it-Felix.</li>
+              </ul>
+            </section>
+        </footer>
+    </body>
+
+</html>

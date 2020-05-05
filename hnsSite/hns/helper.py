@@ -1,5 +1,5 @@
 import datetime
-from datetime import datetime
+#from datetime import datetime
 from datetime import date
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
@@ -38,15 +38,15 @@ class VerifyValues:
 
     def checkOlder18(dob):
         today = date.today()
-        userDOB = datetime.strptime(dob,"%Y-%m-%d")
+        userDOB = datetime.datetime.strptime(dob,"%Y-%m-%d")
         age = today.year - userDOB.year
         return(age >= 18)
 
-    def checkWithinTravelDistance(willingTravel, c_address, c_city, c_state, c_zipcode, s_address, s_city, s_state, s_zipcode):
+    def checkWithinTravelDistance(willingTravel, c_address, c_zipcode, s_address, s_zipcode):
         geolocator = Nominatim(user_agent="hns")
-        contractor_loc = geolocator.geocode(c_address + ", " + c_city + " " + c_zipcode)  #assume location was already verified
-        service_loc = geolocator.geocode(s_address + ", " + s_city + " " + s_zipcode)  #assume location was already verified
-        distance = geodesic(newport_ri, cleveland_oh).miles
+        contractor_loc = geolocator.geocode(c_address + ", " + str(c_zipcode))  #assume location was already verified
+        service_loc = geolocator.geocode(s_address + ", " + s_zipcode)  #assume location was already verified
+        distance = geodesic((contractor_loc.latitude, contractor_loc.longitude), (service_loc.latitude, service_loc.longitude)).miles
         return(distance <= willingTravel)
 
 class UserFunctions:
@@ -85,6 +85,45 @@ class UserFunctions:
         user.zipcode = zipcode
         user.save()
 
+    def addPaymentMethod(user, cardType, cardName, cardNum, cardCVV, cardBillingAddress, cardExpDate):
+        payment = Paymentinfo()  #create new user
+        idPay = Paymentinfo.objects.count()+1
+        while Paymentinfo.objects.filter(pk=idPay).exists():
+            idPay = idPay + 1
+        payment.paymentid = idPay
+        payment.userid  = user
+        payment.cardtype = cardType
+        payment.cardname = cardName
+        payment.cardnumber = cardNum
+        payment.cvv = cardCVV
+        payment.billingaddress = cardBillingAddress
+        payment.expdate = cardExpDate
+        payment.save()
+
+        return payment
+
+    def bookService(service, user, description, serviceDate, serviceTime, zipcode, address, aptnum, contractor, payment):
+        contract = Contracts()  #create new user
+        idC = Contracts.objects.count()+1
+        while Contracts.objects.filter(pk=idC).exists():
+            idC = idC + 1
+        contract.contractid = idC
+        contract.serviceid = service
+        contract.userid = user
+        contract.description = description
+        contract.dateservice = serviceDate
+        contract.starttime = serviceTime
+        contract.servicezipcode = zipcode
+        contract.serviceaddress = address
+        contract.serviceaptnum = aptnum
+        contract.contractorid = contractor
+        contract.paymentid = payment
+        contract.datecontract = datetime.datetime.now()
+        contract.cancelcontract = False
+        contract.save()
+
+        return contract
+
 class ContractorFunctions:
     def applyContractor(name, ssn, address, aptnum, city, state, willingtravel, zipcode, phone, dob, email, password):
         appContractor = Contractorapplications()
@@ -104,7 +143,7 @@ class ContractorFunctions:
         appContractor.dob = dob
         appContractor.email = email
         appContractor.password = password
-        appContractor.dateapp = datetime.now()
+        appContractor.dateapp = datetime.datetime.now()
         appContractor.save()
 
         return appContractor
@@ -133,13 +172,13 @@ class ContractorFunctions:
         appService.serviceid = Services.objects.get(pk=serviceid)
         appService.chargeservice = chargeservice
         appService.yearsexperience = yearsexperience
-        appService.dateapp = datetime.now()
+        appService.dateapp = datetime.datetime.now()
         appService.save()
 
 class AdminFunctions:
     def approveApp(app, adminid):
         app.adminid = Administrators.objects.get(pk=adminid)
-        app.dateapproved = datetime.now()
+        app.dateapproved = datetime.datetime.now()
         app.save(update_fields=['adminid', 'dateapproved'])
 
         return app

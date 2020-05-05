@@ -7,6 +7,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'hns/css/style.css' %}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myDIV");
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            }
+        </script>
     </head>
    
     <body>
@@ -20,8 +31,8 @@
             <h2 class="header">Contractor Login</h2>
             
             {% for message in messages %}
-                <div class="alert alert-success">
-                    <a class="close" href="#" data-dismiss="alert">×</a>
+                <div id="myDIV" class="alert alert-success">
+                    <i class="fa fa-close" onclick="myFunction()"></i>
 
                     {{ message }}
 

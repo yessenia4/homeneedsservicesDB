@@ -8,6 +8,14 @@ from phone_field import PhoneField
 
 from .models import *
 
+# iterable 
+CARD_TYPE_CHOICES =( 
+    ("VISA","VISA"), 
+    ("MasterCard","MasterCard"), 
+    ("Discover","Discover"), 
+    ("American Express","American Express"),
+)
+
 class LoginUserForm(forms.ModelForm):
 
     class Meta:
@@ -32,7 +40,7 @@ class NewUserForm(forms.ModelForm):
             'lastname': forms.TextInput(attrs={'class':'input', 'placeholder': 'Last Name', 'maxlength': '20',}),
             'email': forms.EmailInput(attrs={'class':'input', 'placeholder': 'Email', 'maxlength': '100',}),
             'password': forms.PasswordInput(attrs={'class':'input', 'placeholder': 'Password', 'maxlength': '50',}, render_value=True),
-            'dob': forms.DateInput(attrs={'class':'input', 'placeholder': 'YYYY/MM/DD', 'readonly':'true'}),
+            'dob': forms.DateInput(attrs={'class':'input', 'placeholder': 'YYYY/MM/DD'}),
             'address': forms.TextInput(attrs={'class':'input', 'placeholder': 'Address', 'maxlength': '150',}),
             'city': forms.TextInput(attrs={'class':'input', 'placeholder': 'City', 'maxlength': '50',}),
             'state': USStateSelect(),
@@ -53,7 +61,7 @@ class NewContractorForm(forms.ModelForm):
             'city': forms.TextInput(attrs={'class':'input', 'placeholder': 'City', 'maxlength': '50',}),
             'state': USStateSelect(),
             'willingtravel': forms.NumberInput(attrs={'class':'input'}),
-            'dob': forms.DateInput(attrs={'class':'input', 'placeholder': 'YYYY/MM/DD', 'readonly':'true'}),
+            'dob': forms.DateInput(attrs={'class':'input', 'placeholder': 'YYYY/MM/DD'}),
             'email': forms.EmailInput(attrs={'class':'input', 'placeholder': 'Email', 'maxlength': '100',}),
             'password': forms.PasswordInput(attrs={'class':'input', 'placeholder': 'Password', 'maxlength': '50',}, render_value=True),
         }
@@ -67,24 +75,34 @@ class ContractForm(forms.ModelForm):
         fields = ['description', 'dateservice', 'starttime', 'servicezipcode', 'serviceaddress', 'serviceaptnum']
         widgets = {
             'description': forms.Textarea(attrs={'class':'input', 'placeholder': 'Description', 'maxlength':'500',}),
-            'dateservice': forms.DateInput(attrs={'class':'input', 'placeholder': 'YYYY/MM/DD', 'readonly':'true'}),
+            'dateservice': forms.DateInput(attrs={'class':'input', 'placeholder': 'YYYY-MM-DD'}),
             'starttime': forms.TimeInput(attrs={'class':'input'}),
             'serviceaddress': forms.TextInput(attrs={'class':'input', 'placeholder': 'Address', 'maxlength':'150',}),
         }
 
 class NewPaymentInfoForm(forms.ModelForm):
+    cardtype = forms.ChoiceField(choices=CARD_TYPE_CHOICES)
 
     class Meta:
         model = Paymentinfo
         fields = ['cardtype', 'cardname', 'cardnumber', 'cvv', 'billingaddress', 'expdate']
         widgets = {
-            'cardtype': forms.TextInput(attrs={'class':'input', 'placeholder': 'Card Type', 'maxlength':'20',}),
             'cardname': forms.TextInput(attrs={'class':'input', 'placeholder': 'Card Name', 'maxlength':'150',}),
             'cardnumber': forms.NumberInput(attrs={'class':'input'}),
             'cvv': forms.NumberInput(attrs={'class':'input'}),
             'billingaddress': forms.TextInput(attrs={'class':'input', 'placeholder': 'Billing Address', 'maxlength':'150'}),
-            'expdate': forms.DateInput(attrs={'class':'input', 'placeholder': 'MM/YY'}),
+            'expdate': forms.DateInput(attrs={'class':'input', 'placeholder': 'YY-MM'}),
         }
+
+class SelectPaymentForm(forms.ModelForm):
+    
+    class Meta:
+        model = Contracts
+        fields = ['paymentid']
+
+    def __init__(self, qs, *args, **kwargs):
+        super(SelectPaymentForm, self).__init__(*args, **kwargs)
+        self.fields['paymentid'].queryset = qs       
 
 class RatingForm(forms.ModelForm):
 

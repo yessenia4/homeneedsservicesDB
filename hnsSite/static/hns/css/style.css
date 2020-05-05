@@ -213,6 +213,13 @@ input::-webkit-inner-spin-button {
     color: black;
 }
 
+.returnHome {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10rem;
+    text-align: center;
+}
+
 /* ~~ Account Profile ~~ */
 .userinfo{
     margin: 1rem auto;
@@ -274,7 +281,7 @@ input::-webkit-inner-spin-button {
     font-weight: normal;
 }
 
-.noData .add{
+.add{
     margin: 3rem auto;
     margin-bottom: 5rem;
 }
@@ -387,86 +394,116 @@ input::-webkit-inner-spin-button {
     margin: 2rem 0;
 }
 
-/* styling for radio buttons - http://code.iamkate.com/html-and-css/styling-checkboxes-and-radio-buttons/*/
-.contractorData {
-    margin: 0.7rem auto;
+.paymentForm {
+    margin: 2rem auto;
+}
+
+.previousPay {
+    margin: 0.3rem auto;
+    text-align: center;
+}
+
+.newPaymentForm{
+    margin: 2rem auto;
+}
+
+.newPay{
+    margin: 0.3rem auto;
+    text-align: center;
+}
+
+
+.newPay table{
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
+    border-spacing: 2rem 0.3rem;
 }
 
-.contractorData label {
-    margin-right: 15px;
-    line-height: 32px;
-  }
+.newPay th{
+    text-align: left;
+}
+
+.newPay input[type=text]{
+    width: 100%;
+    padding: 0.7rem;
+    margin: 0.5rem 0rem;
+    margin-bottom: 1.3rem;
+    font-size: 1.05rem;
+}
+
+.contractorButtons{
+    width: 100%;
+    margin: 1rem auto;
+}
+
+.contractorData {
+    margin: 1rem 2rem;
+    margin-bottom: 3rem;
+    width: fit-content;
+    padding: 0.7rem 1.7rem;
+    color: #f2f2f2;
+    background-image: radial-gradient(#7f7f7f, #333);
+    border-radius: 1rem;
+}
+
+.contractorData div{
+    margin: 1rem auto;
+}
+
+.cancelContractor{
+    text-align: center;
+}
+
+.confirmContract {
+    border-collapse: collapse;
+    margin: 25px auto;
+    border-spacing: 4rem 0.3rem;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
   
-.contractorData input[type=radio] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+.confirmContract thead tr {
+    background-color: #00bfff;
+    color: #f2f2f2;
+    text-align: left;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.confirmContract tbody th {
+    font-size: 1.15rem;
+}
+
+.confirmContract tbody td {
+    font-size: 1.07rem;
+}
+
+.confirmContract th, .confirmContract td {
+    padding: 0.7rem 1.5rem;
+}
   
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-  
-    border: 2px solid #999;
-    transition: 0.2s all linear;
-    margin-right: 5px;
-  
-    position: relative;
-    top: 4px;
-}
-  
-.contractorData input[type=radio]:checked {
-    border: 7px solid #00bfff;
+.confirmContract tbody tr {
+    border-bottom: 1px solid #dddddd;
 }
 
-.contractorData label {
-    font-size: 1.55rem;
+.confirmForm{
+    margin: 1rem auto;
+    width: 80%;
+    text-align: center;
 }
 
-.contractorData input[type=radio]:not(old){
-    width     : 3rem;
-    margin    : 0;
-    padding   : 0;
-    font-size : 2rem;
-    opacity   : 0;
+.doneMessage {
+    margin: 2rem 2rem;
 }
 
-.contractorData input[type=radio]:not(old) + label{
-  display      : inline-block;
-  margin-left  : -2rem;
-  line-height  : 2rem;
+.returnServices{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10rem;
+    text-align: center;
 }
-
-.contractorData input[type=radio]:not(old) + label > span{
-    display          : inline-block;
-    width            : 1.5rem;
-    height           : 1.5rem;
-    margin           : 0.25rem 0.5rem 0.25rem 0.25rem;
-    border           : 0.0625rem solid rgb(192,192,192);
-    border-radius    : 0.25rem;
-    background       : rgb(224,224,224);
-    background-image :    -moz-linear-gradient(rgb(240,240,240),rgb(224,224,224));
-    background-image :     -ms-linear-gradient(rgb(240,240,240),rgb(224,224,224));
-    background-image :      -o-linear-gradient(rgb(240,240,240),rgb(224,224,224));
-    background-image : -webkit-linear-gradient(rgb(240,240,240),rgb(224,224,224));
-    background-image :         linear-gradient(rgb(240,240,240),rgb(224,224,224));
-    vertical-align   : bottom;
-}
-
-.contractorData input[type=radio]:not(old):checked + label > span > span{
-    display          : block;
-    width            : 1.15rem;
-    height           : 1.08rem;
-    margin           : 0.125rem;
-    border           : 0.0625rem solid rgb(0,134,179);
-    border-radius    : 0.125rem;
-    background       : rgb(0,191,255);
-    background-image :    -moz-linear-gradient(rgb(128,223,255),rgb(0,191,255));
-    background-image :     -ms-linear-gradient(rgb(128,223,255),rgb(0,191,255));
-    background-image :      -o-linear-gradient(rgb(128,223,255),rgb(0,191,255));
-    background-image : -webkit-linear-gradient(rgb(128,223,255),rgb(0,191,255));
-    background-image :         linear-gradient(rgb(128,223,255),rgb(0,191,255));
-  }
 
 /* ~~ Top User Welcome Bar ~~ */
 .userWelcome{
@@ -668,4 +705,18 @@ footer a:hover {
 /* one before the last child */
 .ft-legal-list li:nth-last-child(2) {
     flex: 1;
+}
+
+.alert.alert-success {
+    text-align: center;
+    background-color: #ff9a9a;
+    width: fit-content;
+    padding: 1rem 2rem;
+    margin: 1rem auto;
+    border-radius: 1rem;
+    border: 0.15rem solid red;
+}
+
+.alert.alert-success i{
+    cursor: pointer;
 }
